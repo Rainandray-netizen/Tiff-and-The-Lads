@@ -30,11 +30,11 @@ def signup(request):
 def home(request):
   return render(request, 'home.html')
 
-@login_required
+# @login_required
 def profile_show(request):
-  activities = Activities.objects.filter(user = request.user)
-  routine = Routine.objects.filter(user = request.user)
-  return render(request, 'profile/index.html', { 'activities': activities, 'routine': routine })
+  # activities = Activities.objects.filter(user = request.user)
+  # routine = Routine.objects.filter(user = request.user)
+  return render(request, 'registration/profile.html')
 
 class ActivityList(LoginRequiredMixin, ListView):
   model = Activity
