@@ -12,7 +12,7 @@ TIME = (
     ('C', 'More than 2 hours')
 )
 
-Interaction = (
+INTERACTION = (
     ('A', 'Low interaction'),
     ('B', 'Moderate interaction'),
     ('C', 'High interaction')
@@ -31,7 +31,7 @@ class Activity(models.Model):
     interaction = models.CharField (
         choices=INTERACTION
     ) 
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
