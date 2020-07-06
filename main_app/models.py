@@ -20,15 +20,18 @@ INTERACTION = (
 
 class Activity(models.Model):
     name = models.CharField(max_length=50)
-    number_of_people = models.IntField()
+    number_of_people = models.IntegerField()
     distancing = models.BooleanField
     venue = models.CharField(
-        choices=Venue
+        max_length=1,
+        choices=VENUE
     )
     time_length = models.CharField(
+        max_length=1,
         choices=TIME
     )
     interaction = models.CharField (
+        max_length=1,
         choices=INTERACTION
     ) 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -40,7 +43,7 @@ class Activity(models.Model):
 
 
 class Routine(models.Model):
-    date = date.today("Date of Risk Assessment")
+    # date = date.today("Date of Risk Assessment")
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
 
     def __str__(self):
