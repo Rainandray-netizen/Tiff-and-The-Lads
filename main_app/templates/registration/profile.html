@@ -1,0 +1,74 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="content-section">
+    <div class="media">
+        <div class="card-panel grey lighten-5 z-depth-1">
+            <div class="row valign-wrapper">
+                <div class="col s2">
+                    <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt="" class="circle responsive-img">
+                    <!-- notice the "circle" class -->
+                </div>
+                <div class="col s10">
+                    <ul>
+                        <li>Username: <span>username here</span></li>
+                        <li>Location: <span>location here</span></li>
+                        <li>Status: <span>status here</span></li>
+
+                        <li>Edit Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- List of saved activites  -->
+<div class="row">
+    <div class="col s12">
+        <div class="col s6">
+            <div class="card-panel">
+                <h4>ACTIVITES<span> <i style="float: right;" class="material-icons">add_box</i></span></h4>
+
+                <table>
+                    <tr>
+
+                        <th>Activity</th>
+                        <th>Risk Level</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+
+                        <td>Swimming</td>
+                        <td>Risk level 1</td>
+                        <td> <i class="material-icons">delete</i></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- List of Saved Routines -->
+        <div class="col s6">
+            <div class="card-panel">
+                <h4>ROUTINES <span> <i style="float: right;" class="material-icons">add_box</i></span></h4>
+                <table>
+                    <tr>
+                        <th>Date</th>
+                        <th>Number of Activites</th>
+                        <th>Overall Risk</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>1/1/2020</td>
+                        <td>11</td>
+                        <td>Risk level 1</td>
+                        <td> <i class="material-icons">visibility</i><i class="material-icons">delete</i></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
