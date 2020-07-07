@@ -5,28 +5,30 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Covid</title>
+    <title>COVID</title>
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
 
 <body>
     <header class="navbar-fixed">
-        <nav>
+        <nav class="z-depth-0">
             <div class="nav-wrapper">
                 <ul>
                     <li>
-                        <a href="/" class="left brand-logo">&nbsp;&nbsp;COVID</a>
+                        <a href="/" class="brand-logo center">COVID-19</a>
                     </li>
                 </ul>
                 <ul class="right">
-                    <!-- Add if user authenticated here  -->
+                    {% if user.is_authenticated %}
                     <li><a href="">Profile</a></li>
                     <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    {% else %}
                     <li><a href="{% url 'login' %}">Log In</a></li>
                     <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
@@ -34,6 +36,9 @@
     <main>
         {% block content %} {% endblock %}
     </main>
+    <footer class="page-footer">
+        All Rights Reserved, &copy; 2020 &nbsp;
+    </footer>
 </body>
 
 </html>

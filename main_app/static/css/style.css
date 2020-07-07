@@ -1,0 +1,38 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1 0 auto;
+    margin: 0 30px 30px 30px;
+}
+.page-footer {
+    background-color: rgb(0, 75, 119);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+nav {
+    background-color: rgb(0, 75, 119);
+}
+form.login {
+    max-width: 500px;
+}
+form.signup {
+    max-width: 500px;
+}
+.helptext {
+    font-size: 10px;
+}
+form.signup ul li {
+    font-size: 10px;
+}
+.card-panel {
+    border-radius: 15px;
+    font-size: 30px;
+    text-align: center;
+}
+.data-label {
+    text-align: center;
+}
