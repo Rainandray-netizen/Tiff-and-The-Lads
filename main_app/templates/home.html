@@ -5,41 +5,41 @@ their personalized stats else show default  -->
 {% if user.is_authenticated %}
 
 <div class="container">
-  <div class="row">
-    <h5 class="center">Country Stats</h5>
-    <p class="center">LAST UPDATED: 06/10/20</p>
-    <div class="col s4">
-      <a href class="tooltipped" data-position="bottom" data-tooltip="+25342"
-        ><div class="card-panel red lighten-1">
-          <span class="white-text">12345</span>
-        </div></a
-      >
+    <div class="row">
+        <h5 class="center">Country Stats</h5>
+        <p class="center">LAST UPDATED: 06/10/20</p>
+        <div class="col s4">
+            <a href class="tooltipped" data-position="bottom" data-tooltip="+25342">
+                <div class="card-panel red lighten-1">
+                    <span class="white-text">12345</span>
+                </div>
+            </a>
 
-      <p class="data-label">TOTAL CASES</p>
+            <p class="data-label">TOTAL CASES</p>
+        </div>
+        <div class="col s4">
+            <a href class="tooltipped" data-position="right" data-tooltip="+5433">
+                <div class="card-panel red lighten-1">
+                    <span class="white-text center">23455</span>
+                </div>
+            </a>
+            <p class="data-label">TOTAL DEATHS</p>
+        </div>
+        <div class="col s4">
+            <a href class="tooltipped" data-position="bottom" data-tooltip="+213">
+                <div class="card-panel red lighten-1">
+                    <span class="white-text">234435</span>
+                </div>
+            </a>
+            <p class="data-label">TOTAL RECOVERED</p>
+        </div>
+        <!-- Have new stats show on hover -->
     </div>
-    <div class="col s4">
-      <a href class="tooltipped" data-position="right" data-tooltip="+5433"
-        ><div class="card-panel red lighten-1">
-          <span class="white-text center">23455</span>
-        </div></a
-      >
-      <p class="data-label">TOTAL DEATHS</p>
-    </div>
-    <div class="col s4">
-      <a href class="tooltipped" data-position="bottom" data-tooltip="+213">
-        <div class="card-panel red lighten-1">
-          <span class="white-text">234435</span>
-        </div></a
-      >
-      <p class="data-label">TOTAL RECOVERED</p>
-    </div>
-    <!-- Have new stats show on hover -->
-  </div>
 
   <div class="container center">
     <div class="row">
       <h5 class="center">How Risky Are You?</h5>
-      <form class="col s12" method="post" action="">
+      <form class="col s12" method="post" action=".">
         <div class="input-field">
           <select>
             <!-- Add for loop an generate a value for each activity we have when we have data -->
@@ -48,22 +48,16 @@ their personalized stats else show default  -->
             <option value="2">Hanging out with friends</option>
             <option value="3">Going to the beach</option>
           </select>
-        </div>
-        <input
-          type="submit"
-          class="btn green lighten-1 modal-trigger"
-          value="Calculate"
-          data-target="modal1"
-        />
-        <div id="modal1" class="modal">
-          <div class="modal-content">
-            <!-- show different headings depending on risk factor -->
-            <h4>YOU'RE A LITTLE RISKY</h4>
-            <p>A bunch of text</p>
-          </div>
-          <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat"
-              >OK</a
+                </div>
+                <input type="submit" class="btn green lighten-1 modal-trigger" value="Calculate" data-target="modal1" />
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <!-- show different headings depending on risk factor -->
+                        <h4>YOU'RE A LITTLE RISKY</h4>
+                        <p>A bunch of text</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a
             >
           </div>
         </div>
@@ -132,37 +126,59 @@ their personalized stats else show default  -->
   <div class="container center">
     <div class="row">
       <h5 class="center">How Risky Are You?</h5>
-      <form class="col s12" method="post" action="">
+
+      <form class="col s12" method="post" action="{% url 'home' %}">{% csrf_token %} 
         <div class="input-field">
-          <select>
+          <select name="activity">
             <!-- Add for loop an generate a value for each activity we have when we have data make sure to add the id of the curent activity to the value too-->
-            <option value="" disabled="" selected="">SELECT ACTIVITY</option>
+            <option disabled="" selected="">SELECT ACTIVITY</option>
             {% for a in activities %}
-            <option value="1">{{a.activity}}</option>
+            <option title="{{a.activity}} value="{{a.activity}}"
+              >{{a.activity}}</option
+            >
             {% endfor %}
           </select>
         </div>
         <input
           type="submit"
           value="Calculate"
-          data-target="modal1"
-          class="btn #66bb6a green lighten-1 modal-trigger"
+          class="btn #66bb6a green lighten-1"
         />
+
+        <input
+        type="submit"
+        value="Results"
+        data-target="modal1"
+        class="btn #66bb6a green lighten-1 modal-trigger"
+       
+      /> 
       </form>
+
       <div id="modal1" class="modal">
         <div class="modal-content">
           <!-- show different headings depending on risk factor -->
+          {% if activity.0.factor <= 4 %}
+          <h4>YOU'RE NOT THAT RISKY</h4>
+          {% elif activity.0.factor <= 6 and  activity.0.factor > 4 %}
           <h4>YOU'RE A LITTLE RISKY</h4>
-          <p>This activity has a high risk level.</p>
+          {% elif activity.0.factor <= 10 and activity.0.factor > 6 %}
+          <h4>YOU'RE VERY RISKY</h4>
+          {% endif %}
+          {% if selected_activity %}
+          <p><b>{{selected_activity}}</b>&nbsphas a <b>{{activity.0.risk}}</b> risk level</p>
+          {% else %}
+          <p>No activity selected</p>
+          {%endif%}
           <p>
-            <a href="">Login/</a><a href="">Sign Up</a>&nbspfor personalized
+            <a href="{% url 'login' %}">Login/</a><a href="{% url 'signup' %}">Sign Up</a>&nbspfor personalized
             features
           </p>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat" 
             >OK</a
-          >
+          > 
+          <!-- make this button above refresh the page to clear the current post request -->
         </div>
       </div>
     </div>
