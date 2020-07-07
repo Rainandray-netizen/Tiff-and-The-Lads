@@ -18,6 +18,13 @@ INTERACTION = (
     ('C', 'High interaction')
 )
 
+class Routine(models.Model):
+    name = models.CharField(max_length=50)
+
+
+    def __str__(self):
+        return self.name
+
 class Activity(models.Model):
     name = models.CharField(max_length=50)
     number_of_people = models.IntegerField()
@@ -34,21 +41,12 @@ class Activity(models.Model):
         max_length=1,
         choices=INTERACTION
     ) 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     risk_level = models.IntegerField(default=0)
+    routine = models.ManyToManyField(Routine)
 
     def __str__(self):
         return self.name
 
-    # def activity_assessment(self):
-
-
-class Routine(models.Model):
-    # date = date.today("Date of Risk Assessment")
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
 
 class Profile(models.Model):
     name = models.CharField(max_length=50)
@@ -56,3 +54,4 @@ class Profile(models.Model):
     status = models.CharField(max_length=256)
     profile_url = models.CharField(max_length=256)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    activity = models.ManyToManyField(Activity)
