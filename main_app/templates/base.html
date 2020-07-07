@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 
 <body>
@@ -36,15 +36,15 @@
         <nav class="z-depth-0">
             <div class="nav-wrapper">
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a
-       >
-          {% if user.is_authenticated %}
-          <ul class="left">
-            <li>Logged in as {{user.username}}</p></li>
-          </ul>
-          {% endif %}
-          <ul>
-            <li>
-              <a href="/" class="brand-logo center">COVID-19</a>
+            >
+            {% if user.is_authenticated %}
+            <ul class="left">
+              <li>Logged in as {{user.username}}</p></li>
+            </ul>
+            {% endif %}
+            <ul>
+              <li>
+                <a href="/" class="brand-logo center">COVID-19</a>
                 </li>
                 </ul>
                 <ul class="right">
@@ -69,10 +69,6 @@
         All Rights Reserved &copy; 2020 &nbsp;
     </footer>
 </body>
-
-</html>
-
-
 <script>
     $(document).ready(function() {
         $(".sidenav").sidenav({
@@ -80,3 +76,6 @@
         });
     });
 </script>
+
+
+</html>

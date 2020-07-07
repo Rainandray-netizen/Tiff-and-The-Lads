@@ -1,1 +1,88 @@
-{% extends 'base.html' %} {% block content %} {% endblock %}
+{% extends 'base.html' %} {% block content %}
+
+<div class="row">
+    <div class="col s12">
+
+        <div class="card-panel">
+            <table class="centered">
+                <h2>Activity: {{activity.name}}</h2>
+                <tr>
+
+                    <th>Number of People</th>
+                    <th>Distancing?</th>
+                    <th>Venue</th>
+                    <th>Time</th>
+                    <th>Interaction</th>
+                    <th>Risk Level</th>
+
+                </tr>
+                <tr>
+
+                    <td>{{activity.number_of_people}}</td>
+
+                    <td>{{activity.distancing}}</td>
+
+                    <td>{{activity.venue}}</td>
+
+                    <td>{{activity.time_length}}</td>
+
+                    <td>{{activity.interaction}}</td>
+
+                    <td>{{activity.risk_level}}</td>
+
+
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col s12">
+
+        <div class="card-panel">
+            <h2> Recommendations:</h2>
+            {% if activity.risk_level == 0 %}
+            <p> Wear a Mask</p>
+
+            {% elif activity.risk_level == 1 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 2 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 3 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 4 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 5 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 6 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 7 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 8 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 9 %}
+            <p> Wear body armour</p>
+
+            {% elif activity.risk_level == 10 %}
+            <p> Wear body armour</p>
+
+            {% else %}
+
+            <p> No Recommendations at this time </p>
+            {% endif %}
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}

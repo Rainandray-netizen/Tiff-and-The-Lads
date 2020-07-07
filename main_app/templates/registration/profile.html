@@ -29,7 +29,7 @@
             <div class="card-panel">
                 <h4>ACTIVITES<span>  <input style="float: right;" type="submit" class="btn blue lighten-1 modal-trigger" value="+" data-target="modal1" /></span></h4>
 
-                <table>
+                <table class="centered" class="responsive-table">
                     <tr>
 
                         <th>Activity</th>
@@ -40,9 +40,15 @@
                     {% for activity in user.activity_set.all %}
                     <tr>
                         <td>{{activity.name}}</td>
-                        <td>Risk level 1</td>
                         <td>
-                            <a href="#modal2" data-target="modal2" data-toggle="modal"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
+                            <div class="riskcontainer">
+                                <div class="riskcontainer2 lowrisk">Level {{activity.risk_level}}</div>
+
+
+                            </div>
+                        </td>
+                        <td>
+                            <a href="{% url 'detail' activity.id %}"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
 
                     </tr>
 
@@ -52,14 +58,14 @@
                 <!--   Modal pop up to so you can ADD AN ACTIVITY -->
                 <div id="modal1" class="modal">
                     <div class="modal-content">
-                        <h4>Add Activity:</h4>
+                        <h4>Add Activity:
+                            <a style="float: right;" href="#!" class="modal-close waves-effect waves-green btn-flat">X</a></h4>
                         <form action="{% url 'activity_create' user.id %}" method="post">
                             {% csrf_token %} {{ activity_form.as_p }}
                             <input type="submit" class="btn" value="Add Activity">
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">X</a>
                     </div>
                 </div>
 
@@ -81,7 +87,7 @@
         <div class="col s6">
             <div class="card-panel">
                 <h4>ROUTINES <span> <a href="/"> <i style="float: right;"  class="btn blue lighten-1 modal-trigger">+</i></a></span></h4>
-                <table>
+                <table class="centered" class="responsive-table">
                     <tr>
                         <th>Date</th>
                         <th>Number of Activites</th>
@@ -94,15 +100,50 @@
                         <td>Risk level 1</td>
                         <td> <i class="material-icons">visibility</i><i class="material-icons">delete</i></td>
                     </tr>
+                    {% for routine in user.routine_set.all %}
+                    <tr>
+                        <td>{{routine.activity}}</td>
+                        <td>Risk level 1</td>
+                        <td>
+                            <a href="#modal2" data-target="modal2" data-toggle="modal"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
+
+                    </tr>
+
+                    {% endfor %}
                 </table>
             </div>
         </div>
     </div>
 </div>
+<style>
+    .riskcontainer {
+        width: 100%;
+        background-color: #ddd;
+    }
+    
+    .riskcontainer2 {
+        text-align: right;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: white;
+    }
+    
+    .lowrisk {
+        width: 33%;
+        background-color: #4CAF50;
+    }
+    
+    .mediumrisk {
+        width: 66%;
+        background-color: rgb(235, 212, 11);
+    }
+    
+    .highrisk {
+        width: 66%;
+        background-color: red;
+    }
+</style>
 <script>
-    $(document).ready(function() {
-        $(".modal").modal();
-    });
     var selectEl = document.getElementById('id_venue');
     M.FormSelect.init(selectEl);
     var selectEl2 = document.getElementById('id_interaction');
@@ -110,5 +151,7 @@
 
     var selectEl3 = document.getElementById('id_time_length');
     M.FormSelect.init(selectEl3);
+    var selectEl4 = document.getElementById('id_distancing');
+    M.FormSelect.init(selectEl4);
 </script>
 {% endblock %}
