@@ -47,7 +47,7 @@ def add_activity(request, user_id):
     new_activity = form.save(commit=False)
     new_activity.user_id = user_id
     new_activity.save()
-  return redirect('/', user_id=user_id)
+  return redirect('/accounts/profile', user_id=user_id)
 
 class ActivityList(LoginRequiredMixin, ListView):
   model = Activity

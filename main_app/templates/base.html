@@ -5,19 +5,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>COVID</title>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" /> =======
-    <title>Covid</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 </head>
 
 <body>
@@ -27,7 +21,7 @@
             <div class="divider"></div>
         </li>
 
-        <li><a href="">Profile</a></li>
+        <li><a href="{% url 'show' %}">Profile</a></li>
         <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Logout</a></li>
 
         <li><a class="waves-effect" href="#!">Settings</a></li>
@@ -55,7 +49,7 @@
                 </ul>
                 <ul class="right">
                     {% if user.is_authenticated %}
-                    <li><a href="">Profile</a></li>
+                    <li><a href="{% url 'show' %}">Profile</a></li>
                     <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}">Log In</a></li>
@@ -64,41 +58,25 @@
                 </ul>
             </div>
         </nav>
-        <header class="navbar-fixed">
-            <nav>
-                <div class="nav-wrapper">
-                    <ul>
-                        <li>
-                            <a href="/" class="left brand-logo">&nbsp;&nbsp;COVID</a>
-                        </li>
-                    </ul>
-                    <ul class="right">
-                        <!-- Add if user authenticated here  -->
-                        <li><a href="{% url 'profile' %}">Profile</a></li>
-                        <li><a href="{% url 'logout' %}">Log Out</a></li>
-                        <li><a href="{% url 'login' %}">Log In</a></li>
-                        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    </ul>
-                </div>
-            </nav>
 
-        </header>
-        <main>
-            {% block content %} {% endblock %}
-        </main>
-        <footer class="page-footer">
-            All Rights Reserved &copy; 2020 &nbsp; </footer>
 
-        <script>
-            $(document).ready(function() {
-                $(".sidenav").sidenav({
-                    full_width: true
-                });
-            });
-        </script>
-        $(document).ready(function () { $(".sidenav").sidenav({full_width: true}); });
-        </script>
+    </header>
+    <main>
+        {% block content %} {% endblock %}
+    </main>
 
+    <footer class="page-footer">
+        All Rights Reserved &copy; 2020 &nbsp;
+    </footer>
 </body>
 
 </html>
+
+
+<script>
+    $(document).ready(function() {
+        $(".sidenav").sidenav({
+            full_width: true
+        });
+    });
+</script>
