@@ -5,16 +5,15 @@
         <div class="card-panel grey lighten-5 z-depth-1">
             <div class="row valign-wrapper">
                 <div class="col s2">
+
+                    <!-- Profile image - with the circle class -->
                     <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt="" class="circle responsive-img">
-                    <!-- notice the "circle" class -->
                 </div>
                 <div class="col s10">
                     <ul>
-                        <li>Username: <span>username here</span></li>
-                        <li>Location: <span>location here</span></li>
-                        <li>Status: <span>status here</span></li>
-
-                        <li>Edit Profile</li>
+                        <li><b>Username: </b> <span>{{user.username}}</span></li>
+                        <li><b>Location: </b> <span>location here</span></li>
+                        <li><b>Edit Profile </b></li>
                     </ul>
                 </div>
             </div>
@@ -23,13 +22,12 @@
 </div>
 
 
-
 <!-- List of saved activites  -->
 <div class="row">
     <div class="col s12">
         <div class="col s6">
             <div class="card-panel">
-                <h4>ACTIVITES<span> <i style="float: right;" class="material-icons">add_box</i></span></h4>
+                <h4>ACTIVITES<span>  <input style="float: right;" type="submit" class="btn blue lighten-1 modal-trigger" value="+" data-target="modal1" /></span></h4>
 
                 <table>
                     <tr>
@@ -38,20 +36,51 @@
                         <th>Risk Level</th>
                         <th>Action</th>
                     </tr>
-                    <tr>
 
-                        <td>Swimming</td>
+                    {% for activity in user.activity_set.all %}
+                    <tr>
+                        <td>{{activity.name}}</td>
                         <td>Risk level 1</td>
-                        <td> <i class="material-icons">delete</i></td>
+                        <td>
+                            <a href="#modal2" data-target="modal2" data-toggle="modal"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
+
                     </tr>
+
+                    {% endfor %}
                 </table>
+
+                <!--   Modal pop up to so you can ADD AN ACTIVITY -->
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Add Activity:</h4>
+                        <form action="{% url 'activity_create' user.id %}" method="post">
+                            {% csrf_token %} {{ activity_form.as_p }}
+                            <input type="submit" class="btn" value="Add Activity">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">X</a>
+                    </div>
+                </div>
+
+                <!--   Modal pop up to so you can SEE DETAILS OF AN ACTIVITY -->
+                <div id="modal2" class="modal">
+                    <div class="modal-content">
+                        <h4>Detail Activity:</h4>
+
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">X</a>
+                    </div>
+
+                </div>
             </div>
         </div>
 
         <!-- List of Saved Routines -->
         <div class="col s6">
             <div class="card-panel">
-                <h4>ROUTINES <span> <i style="float: right;" class="material-icons">add_box</i></span></h4>
+                <h4>ROUTINES <span> <a href="/"> <i style="float: right;"  class="btn blue lighten-1 modal-trigger">+</i></a></span></h4>
                 <table>
                     <tr>
                         <th>Date</th>
@@ -70,5 +99,16 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $(".modal").modal();
+    });
+    var selectEl = document.getElementById('id_venue');
+    M.FormSelect.init(selectEl);
+    var selectEl2 = document.getElementById('id_interaction');
+    M.FormSelect.init(selectEl2);
 
+    var selectEl3 = document.getElementById('id_time_length');
+    M.FormSelect.init(selectEl3);
+</script>
 {% endblock %}

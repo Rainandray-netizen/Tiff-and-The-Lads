@@ -9,9 +9,9 @@ urlpatterns = [
     path('accounts/profile/', views.profile_show, name='show'),
     # path('activities/', views.activities_base, name='activities_base'),
 
-    # path('activities/create/', views.ActivityCreate, name='activity_create'),
-    # path('activity/<int:pk>/update/', views.ActivityUpdate.as_view(), name='activity_update'),
-    # path('activity/<int:pk>/delete/', views.ActivityDelete.as_view(), name='activity_delete'),
+    path('accounts/<int:user_id>/add_activity', views.add_activity, name='activity_create'),
+    path('accounts/<int:pk>/delete/', views.ActivityDelete.as_view(), name='activity_delete'),
+    path('activity/<int:pk>/update/', views.ActivityUpdate.as_view(), name='activity_update'),
     
 
     # path('routine/create/', views.RoutineCreate, name='routine_create'), ## Needs to be reviewed for drag and drop feature

@@ -8,8 +8,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Activity, Routine, Profile
-
+from .models import Activity, Routine
+from .forms import ActivityForm
 
 # Create your views here.
 def home(request):
@@ -47,8 +47,17 @@ def signup(request):
 # @login_required
 def profile_show(request):
   # activities = Activities.objects.filter(user = request.user)
+  activity_form = ActivityForm()
   # routine = Routine.objects.filter(user = request.user)
-  return render(request, 'registration/profile.html')
+  return render(request, 'registration/profile.html', {'activity_form': activity_form})
+
+def add_activity(request, user_id):
+  form = ActivityForm(request.POST)
+  if form.is_valid():
+    new_activity = form.save(commit=False)
+    new_activity.user_id = user_id
+    new_activity.save()
+  return redirect('/accounts/profile', user_id=user_id)
 
 class ActivityList(LoginRequiredMixin, ListView):
   model = Activity
@@ -56,17 +65,13 @@ class ActivityList(LoginRequiredMixin, ListView):
 class ActivityDetail(LoginRequiredMixin, DetailView):
   model = Activity
 
-class ActivityCreate(LoginRequiredMixin, CreateView):
-  model = Activity
-  fields = '__all__'
-
 class ActivityUpdate(LoginRequiredMixin, UpdateView):
   model = Activity
   fields = '__all__'
 
 class ActivityDelete(LoginRequiredMixin, DeleteView):
   model = Activity
-  success_url = '/profile/index/'
+  success_url = '/accounts/profile'
 
 
 
