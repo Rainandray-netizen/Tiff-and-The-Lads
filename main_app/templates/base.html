@@ -8,43 +8,38 @@
     <title>COVID</title>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-    />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/style.css' %}"
-    />
-  </head>
-  <body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
     <header class="navbar-fixed">
-      <nav class="z-depth-0">
-        <div class="nav-wrapper">
-          <ul>
-            <li>
-              <a href="/" class="brand-logo center">COVID-19</a>
-            </li>
-          </ul>
-          <ul class="right">
-            {% if user.is_authenticated %}
-            <li><a href="">Profile</a></li>
-            <li><a href="{% url 'logout' %}">Log Out</a></li>
-            {% else %}
-            <li><a href="{% url 'login' %}">Log In</a></li>
-            <li><a href="{% url 'signup' %}">Sign Up</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
+        <nav class="z-depth-0">
+            <div class="nav-wrapper">
+                <ul>
+                    <li>
+                        <a href="/" class="brand-logo center">COVID-19</a>
+                    </li>
+                </ul>
+                <ul class="right">
+                    {% if user.is_authenticated %}
+                    <li><a href="">Profile</a></li>
+                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
     </header>
     <main>
         {% block content %} {% endblock %}
     </main>
-    
+
     <footer class="page-footer">
-      All Rights Reserved, &copy; 2020 &nbsp;
+        All Rights Reserved, &copy; 2020 &nbsp;
     </footer>
-  </body>
+</body>
+
 </html>
