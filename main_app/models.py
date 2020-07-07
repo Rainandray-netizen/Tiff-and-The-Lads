@@ -21,7 +21,7 @@ INTERACTION = (
 class Activity(models.Model):
     name = models.CharField(max_length=50)
     number_of_people = models.IntegerField()
-    distancing = models.BooleanField
+    distancing = models.BooleanField(default=False)
     venue = models.CharField(
         max_length=1,
         choices=VENUE
@@ -35,6 +35,7 @@ class Activity(models.Model):
         choices=INTERACTION
     ) 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    risk_level = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name
