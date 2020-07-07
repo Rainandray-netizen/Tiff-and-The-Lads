@@ -13,11 +13,21 @@ from .models import Activity, Routine, Profile
 
 # Create your views here.
 def home(request):
-  return render(request, 'home.html', {
-    'activities': activities,
-    'global_stats': global_stats,
-    'country_stats': country_stats_list,
-
+    if request.method == 'POST':
+        selected_activity = request.POST.get('activity')
+        if selected_activity:
+            activity = list(filter(lambda a: a['activity'] == selected_activity, activities))
+            return render(request, 'home.html', {
+                'activity': activity,
+                'selected_activity': selected_activity,
+                'activities': activities,
+                'global_stats': global_stats,
+                'country_stats': country_stats_list})
+    else:
+        return render(request, 'home.html', {
+        'activities': activities,
+        'global_stats': global_stats,
+        'country_stats': country_stats_list,
 })
 
 def signup(request):
