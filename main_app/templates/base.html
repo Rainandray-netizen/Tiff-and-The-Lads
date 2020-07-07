@@ -8,23 +8,49 @@
     <title>COVID</title>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+
 </head>
 
 <body>
+    <ul id="slide-out" class="sidenav">
+        <li><a class="subheader">{% if user.is_authenticated %}<i class="material-icons">person</i>{{user.username}}</a></li>
+        <li>
+            <div class="divider"></div>
+        </li>
+
+        <li><a href="">Profile</a></li>
+        <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Logout</a></li>
+
+        <li><a class="waves-effect" href="#!">Settings</a></li>
+        {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+    </ul>
+
+
     <header class="navbar-fixed">
         <nav class="z-depth-0">
             <div class="nav-wrapper">
-                <ul>
-                    <li>
-                        <a href="/" class="brand-logo center">COVID-19</a>
-                    </li>
+                <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a
+       >
+          {% if user.is_authenticated %}
+          <ul class="left">
+            <li>Logged in as {{user.username}}</p></li>
+          </ul>
+          {% endif %}
+          <ul>
+            <li>
+              <a href="/" class="brand-logo center">COVID-19</a>
+                </li>
                 </ul>
                 <ul class="right">
                     {% if user.is_authenticated %}
                     <li><a href="">Profile</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}">Log In</a></li>
                     <li><a href="{% url 'signup' %}">Sign Up</a></li>
@@ -32,14 +58,25 @@
                 </ul>
             </div>
         </nav>
+
+
     </header>
     <main>
         {% block content %} {% endblock %}
     </main>
 
     <footer class="page-footer">
-        All Rights Reserved, &copy; 2020 &nbsp;
+        All Rights Reserved &copy; 2020 &nbsp;
     </footer>
 </body>
 
 </html>
+
+
+<script>
+    $(document).ready(function() {
+        $(".sidenav").sidenav({
+            full_width: true
+        });
+    });
+</script>
