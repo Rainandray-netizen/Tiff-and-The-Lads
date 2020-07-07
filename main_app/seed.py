@@ -35,5 +35,3 @@ activities = [
     {'activity': 'going to a sports stadium', 'risk': 'high', 'risk factor': 9},
     {'activity': 'going to a bar', 'risk': 'high', 'risk factor': 9},
 ]
-
-# depends on other factors as well
