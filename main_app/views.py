@@ -5,7 +5,6 @@ from .covidapi import country_stats_list, global_stats
 
 # Create your views here.
 def home(request):
-  fetch_all_stats()
   return render(request, 'home.html')
 
 def signup(request):
