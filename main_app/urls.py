@@ -4,7 +4,6 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('accounts/signup', views.signup, name='signup'),
-<<<<<<< Updated upstream
     path('accounts/', include('django.contrib.auth.urls')),
 
     path('accounts/profile/', views.profile_show, name='show'),
@@ -20,7 +19,3 @@ urlpatterns = [
     # path('routine/<int:pk>/delete/', views.RoutineDelete.as_view(), name='routine_delete'),
 ]    
     # path('activities/<int:pk>/update/', views.  , name=)
-=======
-
-]
->>>>>>> Stashed changes
