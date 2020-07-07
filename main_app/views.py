@@ -2,17 +2,28 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .covidapi import country_stats_list, global_stats
+from .seed import activities
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
+<<<<<<< HEAD
 from .models import Activity, Routine
 from .forms import ActivityForm
+=======
+from .models import Activity, Routine, Profile
+
+>>>>>>> 931a44bf39845699559613bd527ab5c8364563f0
 
 # Create your views here.
 def home(request):
-  return render(request, 'home.html')
+  return render(request, 'home.html', {
+    'activities': activities,
+    'global_stats': global_stats,
+    'country_stats': country_stats_list,
+
+})
 
 def signup(request):
   error_message = ''
@@ -27,9 +38,6 @@ def signup(request):
   form = UserCreationForm()
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
-
-def home(request):
-  return render(request, 'home.html')
 
 # @login_required
 def profile_show(request):

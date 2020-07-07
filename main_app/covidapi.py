@@ -16,4 +16,4 @@ def fetch_countries():
 
 
 country_stats_list = fetch_countries()
-global_stats = fetch_all_stats
+global_stats = fetch_all_stats()
