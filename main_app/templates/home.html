@@ -1,5 +1,55 @@
 {% extends 'base.html' %} {% block content %}
+<!-- Add if user authenticated, show
+their personalized stats else show default  -->
 
-<h1>Hello world</h1>
+<div class="container">
+  <div class="row">
+    <h5 class="center">Global Stats</h5>
+    <p class="center">LAST UPDATED: 06/10/20</p>
+    <div class="col s4">
+      <div class="card-panel blue lighten-3">
+        <span class="white-text">12345</span>
+      </div>
+      <p class="data-label">TOTAL CASES</p>
+    </div>
+    <div class="col s4">
+      <div class="card-panel blue lighten-3">
+        <span class="white-text center">23455</span>
+      </div>
+      <p class="data-label">TOTAL DEATHS</p>
+    </div>
+    <div class="col s4">
+      <div class="card-panel blue lighten-3">
+        <span class="white-text">234435</span>
+      </div>
+      <p class="data-label">TOTAL RECOVERED</p>
+    </div>
+    <!-- Have new stats show on hover -->
+  </div>
+
+  <div class="container center">
+    <div class="row">
+      <h5 class="center">How Risky Are You?</h5>
+      <form class="col s12" method="post" action="">
+        <div class="input-field">
+          <select>
+            <!-- Add for loop an generate a value for each activity we have when we have data -->
+            <option value="" disabled="" selected="">SELECT ACTIVITY</option>
+            <option value="1">Going to a bar</option>
+            <option value="2">Hanging out with friends</option>
+            <option value="3">Going to the beach</option>
+          </select>
+        </div>
+        <input type="submit" class="btn blue darken-1" value="Calculate" />
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("select").formSelect();
+  });
+</script>
 
 {% endblock %}

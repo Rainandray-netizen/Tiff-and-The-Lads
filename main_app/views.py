@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from .covidapi import country_stats_list, global_stats
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -11,7 +12,7 @@ from .models import Activity, Routine
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+  return render(request, 'home.html')
 
 def signup(request):
   error_message = ''
