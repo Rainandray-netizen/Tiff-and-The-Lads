@@ -54,3 +54,4 @@ class Profile(models.Model):
     location = models.CharField(max_length=50)
     status = models.CharField(max_length=256)
     profile_url = models.CharField(max_length=256)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
