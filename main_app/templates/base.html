@@ -15,21 +15,17 @@
 </head>
 
 <body>
-    <ul id="slide-out" class="sidenav">
-        <li><a class="subheader">{% if user.is_authenticated %}<i class="material-icons">person</i>{{user.username}}</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-
-        <li><a href="{% url 'show' %}">Profile</a></li>
-        <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Logout</a></li>
-
-        <li><a class="waves-effect" href="#!">Settings</a></li>
-        {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'signup' %}">Sign Up</a></li>
-        {% endif %}
-    </ul>
+  <ul id="slide-out" class="sidenav"><li><a class="subheader">{% if user.is_authenticated %}<i class="material-icons">person</i>{{user.username}}</a></li><li><div class="divider"></div></li>
+    <li><a href="{% url 'home' %}">Dashboard</a></li>
+    <li><a href="{% url 'show' %}">Profile</a></li>
+    <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Logout</a></li>
+    
+    <li><a class="waves-effect" href="#!">Settings</a></li>
+    {% else %}
+    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'signup' %}">Sign Up</a></li>
+    {% endif %}
+       </ul>
 
 
     <header class="navbar-fixed">
@@ -45,21 +41,22 @@
           <ul>
             <li>
               <a href="/" class="brand-logo center">COVID-19</a>
-                </li>
-                </ul>
-                <ul class="right">
-                    {% if user.is_authenticated %}
-                    <li><a href="{% url 'show' %}">Profile</a></li>
-                    <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Log Out</a></li>
-                    {% else %}
-                    <li><a href="{% url 'login' %}">Log In</a></li>
-                    <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-
-
+            </li>
+          </ul>
+          <ul class="right">
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'home' %}">Dashboard</a></li>
+            <li><a href="{% url 'show' %}">Profile</a></li>
+            <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            <li><a href="{% url 'signup' %}">Sign Up</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+      
+      
     </header>
     <main>
         {% block content %} {% endblock %}
