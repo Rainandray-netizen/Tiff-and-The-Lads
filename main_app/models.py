@@ -48,3 +48,9 @@ class Routine(models.Model):
 
     def __str__(self):
         return self.name
+
+class Profile(models.Model):
+    name = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    status = models.CharField(max_length=256)
+    profile_url = models.CharField(max_length=256)
