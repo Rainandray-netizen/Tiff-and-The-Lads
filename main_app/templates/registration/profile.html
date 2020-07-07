@@ -5,6 +5,7 @@
         <div class="card-panel grey lighten-5 z-depth-1">
             <div class="row valign-wrapper">
                 <div class="col s2">
+<<<<<<< Updated upstream
 
                     <!-- Profile image - with the circle class -->
                     <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt="" class="circle responsive-img">
@@ -14,6 +15,18 @@
                         <li><b>Username: </b> <span>{{user.username}}</span></li>
                         <li><b>Location: </b> <span>location here</span></li>
                         <li><b>Edit Profile </b></li>
+=======
+                    <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt="" class="circle responsive-img">
+                    <!-- notice the "circle" class -->
+                </div>
+                <div class="col s10">
+                    <ul>
+                        <li>Username: <span>username here</span></li>
+                        <li>Location: <span>location here</span></li>
+                        <li>Status: <span>status here</span></li>
+
+                        <li>Edit Profile</li>
+>>>>>>> Stashed changes
                     </ul>
                 </div>
             </div>
@@ -22,12 +35,20 @@
 </div>
 
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 <!-- List of saved activites  -->
 <div class="row">
     <div class="col s12">
         <div class="col s6">
             <div class="card-panel">
+<<<<<<< Updated upstream
                 <h4>ACTIVITES<span>  <input style="float: right;" type="submit" class="btn blue lighten-1 modal-trigger" value="+" data-target="modal1" /></span></h4>
+=======
+                <h4>ACTIVITES<span> <i style="float: right;" class="material-icons">add_box</i></span></h4>
+>>>>>>> Stashed changes
 
                 <table>
                     <tr>
@@ -36,6 +57,7 @@
                         <th>Risk Level</th>
                         <th>Action</th>
                     </tr>
+<<<<<<< Updated upstream
 
                     {% for activity in user.activity_set.all %}
                     <tr>
@@ -74,13 +96,26 @@
                     </div>
 
                 </div>
+=======
+                    <tr>
+
+                        <td>Swimming</td>
+                        <td>Risk level 1</td>
+                        <td> <i class="material-icons">delete</i></td>
+                    </tr>
+                </table>
+>>>>>>> Stashed changes
             </div>
         </div>
 
         <!-- List of Saved Routines -->
         <div class="col s6">
             <div class="card-panel">
+<<<<<<< Updated upstream
                 <h4>ROUTINES <span> <a href="/"> <i style="float: right;"  class="btn blue lighten-1 modal-trigger">+</i></a></span></h4>
+=======
+                <h4>ROUTINES <span> <i style="float: right;" class="material-icons">add_box</i></span></h4>
+>>>>>>> Stashed changes
                 <table>
                     <tr>
                         <th>Date</th>
@@ -108,7 +143,10 @@
     var selectEl2 = document.getElementById('id_interaction');
     M.FormSelect.init(selectEl2);
 
+<<<<<<< Updated upstream
     var selectEl3 = document.getElementById('id_time_length');
     M.FormSelect.init(selectEl3);
 </script>
+=======
+>>>>>>> Stashed changes
 {% endblock %}

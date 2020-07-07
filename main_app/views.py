@@ -8,13 +8,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-<<<<<<< HEAD
 from .models import Activity, Routine
 from .forms import ActivityForm
-=======
-from .models import Activity, Routine, Profile
-
->>>>>>> 931a44bf39845699559613bd527ab5c8364563f0
 
 # Create your views here.
 def home(request):
