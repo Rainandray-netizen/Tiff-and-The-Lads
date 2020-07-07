@@ -2,25 +2,27 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    box-sizing: border-box;
 }
 main {
     flex: 1 0 auto;
-    margin: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+}
+.forms {
+    align-self: center;
+}
+.nav-wrapper {
+    margin: 0 90px 90px 90px;
 }
 .page-footer {
-    background-color: rgb(0, 75, 119);
+    background-color: rgb(30, 97, 136);
     color: white;
     padding: 10px;
     text-align: center;
 }
 nav {
-    background-color: rgb(0, 75, 119);
-}
-form.login {
-    max-width: 500px;
-}
-form.signup {
-    max-width: 500px;
+    background-color: rgb(30, 97, 136);
 }
 .helptext {
     font-size: 10px;
@@ -35,4 +37,23 @@ form.signup ul li {
 }
 .data-label {
     text-align: center;
+}
+.brand-logo:hover {
+    background-color: transparent;
+}
+@media only screen and (max-width: 600px){
+    .card-panel {
+        border-radius: 15px;
+        font-size: 20px;
+        text-align: center;
+    }
+}
+@media only screen and (max-width: 950px){
+    .left {
+        display: none;
+    }
+    .right li a {
+        display: none;
+    }
+
 }

@@ -2,26 +2,35 @@
 <!-- Add if user authenticated, show
 their personalized stats else show default  -->
 
+{% if user.is_authenticated %}
+
 <div class="container">
   <div class="row">
-    <h5 class="center">Global Stats</h5>
+    <h5 class="center">Country Stats</h5>
     <p class="center">LAST UPDATED: 06/10/20</p>
     <div class="col s4">
-      <div class="card-panel blue lighten-3">
-        <span class="white-text">12345</span>
-      </div>
+      <a href class="tooltipped" data-position="bottom" data-tooltip="+25342"
+        ><div class="card-panel red lighten-1">
+          <span class="white-text">12345</span>
+        </div></a
+      >
+
       <p class="data-label">TOTAL CASES</p>
     </div>
     <div class="col s4">
-      <div class="card-panel blue lighten-3">
-        <span class="white-text center">23455</span>
-      </div>
+      <a href class="tooltipped" data-position="right" data-tooltip="+5433"
+        ><div class="card-panel red lighten-1">
+          <span class="white-text center">23455</span>
+        </div></a
+      >
       <p class="data-label">TOTAL DEATHS</p>
     </div>
     <div class="col s4">
-      <div class="card-panel blue lighten-3">
-        <span class="white-text">234435</span>
-      </div>
+      <a href class="tooltipped" data-position="bottom" data-tooltip="+213">
+        <div class="card-panel red lighten-1">
+          <span class="white-text">234435</span>
+        </div></a
+      >
       <p class="data-label">TOTAL RECOVERED</p>
     </div>
     <!-- Have new stats show on hover -->
@@ -40,7 +49,24 @@ their personalized stats else show default  -->
             <option value="3">Going to the beach</option>
           </select>
         </div>
-        <input type="submit" class="btn blue darken-1" value="Calculate" />
+        <input
+          type="submit"
+          class="btn green lighten-1 modal-trigger"
+          value="Calculate"
+          data-target="modal1"
+        />
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <!-- show different headings depending on risk factor -->
+            <h4>YOU'RE A LITTLE RISKY</h4>
+            <p>A bunch of text</p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+              >OK</a
+            >
+          </div>
+        </div>
       </form>
     </div>
   </div>
@@ -50,6 +76,96 @@ their personalized stats else show default  -->
   $(document).ready(function () {
     $("select").formSelect();
   });
+  $(document).ready(function () {
+    $(".tooltipped").tooltip();
+  });
+  $(document).ready(function () {
+    $(".modal").modal();
+  });
 </script>
+{% else %}
 
-{% endblock %}
+<div class="container">
+  <div class="row">
+    <h5 class="center">Global Stats</h5>
+    <p class="center">LAST UPDATED: 06/10/20</p>
+    <div class="col s4">
+      <a href class="tooltipped" data-position="bottom" data-tooltip="+25342"
+        ><div class="card-panel red lighten-1">
+          <span class="white-text">12345</span>
+        </div></a
+      >
+
+      <p class="data-label">TOTAL CASES</p>
+    </div>
+    <div class="col s4">
+      <a href class="tooltipped" data-position="right" data-tooltip="+5433"
+        ><div class="card-panel red lighten-1">
+          <span class="white-text center">23455</span>
+        </div></a
+      >
+      <p class="data-label">TOTAL DEATHS</p>
+    </div>
+    <div class="col s4">
+      <a href class="tooltipped" data-position="bottom" data-tooltip="+213">
+        <div class="card-panel red lighten-1">
+          <span class="white-text">234435</span>
+        </div></a
+      >
+      <p class="data-label">TOTAL RECOVERED</p>
+    </div>
+    <!-- Have new stats show on hover -->
+  </div>
+
+  <div class="container center">
+    <div class="row">
+      <h5 class="center">How Risky Are You?</h5>
+      <form class="col s12" method="post" action="">
+        <div class="input-field">
+          <select>
+            <!-- Add for loop an generate a value for each activity we have when we have data -->
+            <option value="" disabled="" selected="">SELECT ACTIVITY</option>
+            <option value="1">Going to a bar</option>
+            <option value="2">Hanging out with friends</option>
+            <option value="3">Going to the beach</option>
+          </select>
+        </div>
+        <input
+          type="submit"
+          value="Calculate"
+          data-target="modal1"
+          class="btn #66bb6a green lighten-1 modal-trigger"
+        />
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <!-- show different headings depending on risk factor -->
+            <h4>YOU'RE A LITTLE RISKY</h4>
+            <p>This activity has a high risk level.</p>
+            <p>
+              <a href="">Login/</a><a href="">Sign Up</a>&nbspfor personalized
+              features
+            </p>
+          </div>
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat"
+              >OK</a
+            >
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $("select").formSelect();
+  });
+  $(document).ready(function () {
+    $(".tooltipped").tooltip();
+  });
+  $(document).ready(function () {
+    $(".modal").modal();
+  });
+</script>
+{% endif %} {% endblock %}
