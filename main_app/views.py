@@ -9,42 +9,23 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Activity, Routine
+from .models import Activity, Routine, Profile
+from django.contrib.auth.models import User
 from .forms import ActivityForm
 
 # Create your views here.
 def home(request):
     if request.method == 'POST':
-        # gets a list of the selected activities from the dropdown 
-        selected_activities = request.POST.getlist('activity')
-        # if there is only one selected activity then select that activity by selecting it by index 0 (since there is only one activity in the list)
-        if len(selected_activities) == 1:
-            single_activity = selected_activities[0]
-            # filters through the activities seed file and and finds the matching object to the current selected activity and sets it to activity (use this to access the risk and factor)
-            activity = list(filter(lambda a: a['activity'] == single_activity, activities))
-            return render(request, 'home.html', {
-                'single_activity': single_activity,
-                'activity': activity,
-                'selected_activities': selected_activities,
-                'activities': activities,
-                'global_stats': global_stats,
-                'country_stats': country_stats_list,
-                'current_date': datetime.date(datetime.now()),
-                })
-        # if there are multiple selections then loop through the list
-        elif len(selected_activities) > 1:
-            for sa in selected_activities:
-                # for each activity that is in the list find the corresponding object in the activities seed file
-                # activity is now set to the object from the seed file
-                activity = list(filter(lambda a: a['activity'] == sa, activities))
-            return render(request, 'home.html', {
-                'activity': activity,
-                'selected_activities': selected_activities,
-                'activities': activities,
-                'global_stats': global_stats,
-                'country_stats': country_stats_list,
-                'current_date': datetime.date(datetime.now()),
-                })
+        selected_activity = request.POST.get('activity')
+        activity = list(filter(lambda a: a['activity'] == selected_activity, activities))
+        return render(request, 'home.html', {
+            'single_activity': selected_activity,
+            'activity': activity,
+            'activities': activities,
+            'global_stats': global_stats,
+            'country_stats': country_stats_list,
+            'current_date': datetime.date(datetime.now()),
+            })
     else:
         return render(request, 'home.html', {
         'activities': activities,
@@ -52,6 +33,25 @@ def home(request):
         'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now()),
 })
+
+def dashboard(request):
+    user = request.user
+    profile = Profile.objects.get(user=user)
+    location = profile.location.lower()
+    user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
+    if request.method == 'POST':
+        # gets a list of the selected activities from the dropdown 
+        selected_activities = request.POST.getlist('activity')
+        for sa in selected_activities:
+            activity = list(filter(lambda a: a['activity'] == sa, activities))
+    return render(request, 'dashboard.html', {
+        'location': location,
+        'user_country': user_country,
+        'activities': activities,
+        'global_stats': global_stats,
+        'country_stats': country_stats_list,
+        'current_date': datetime.date(datetime.now())
+    })
 
 
 def signup(request):
