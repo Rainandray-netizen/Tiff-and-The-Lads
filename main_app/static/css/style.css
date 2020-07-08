@@ -41,6 +41,10 @@ form.signup ul li {
 .brand-logo:hover {
     background-color: transparent;
 }
+#modal2-footer {
+    display: flex;
+    justify-content: space-between;
+}
 @media only screen and (max-width: 600px){
     .card-panel {
         border-radius: 15px;
