@@ -60,7 +60,7 @@
                     <div class="modal-content">
                         <h4>Add Activity:
                             <a style="float: right;" href="#!" class="modal-close waves-effect waves-green btn-flat">X</a></h4>
-                        <form action="{% url 'activity_create' user.id %}" method="post">
+                        <form action="{% url 'activity_create' profile.id %}" method="post">
                             {% csrf_token %} {{ activity_form.as_p }}
                             <input type="submit" class="btn" value="Add Activity">
                         </form>
@@ -134,6 +134,17 @@
 </style>
 <script>
     $(document).ready(function() {
+        $(".modal").modal();
+        var selectEl = document.getElementById('id_venue');
+        M.FormSelect.init(selectEl);
+        var selectEl2 = document.getElementById('id_interaction');
+        M.FormSelect.init(selectEl2);
+
+        var selectEl3 = document.getElementById('id_time_length');
+        M.FormSelect.init(selectEl3);
+        var selectEl4 = document.getElementById('id_distancing');
+        M.FormSelect.init(selectEl4);
+
         function myFunc() {
             let y = document.querySelector(".riskcontainer2").innerText
             y = parseInt(y.replace(/\D/g, ''));
@@ -151,17 +162,7 @@
         }
         myFunc();
 
-        $(".modal").modal();
 
-        var selectEl = document.getElementById('id_venue');
-        M.FormSelect.init(selectEl);
-        var selectEl2 = document.getElementById('id_interaction');
-        M.FormSelect.init(selectEl2);
-
-        var selectEl3 = document.getElementById('id_time_length');
-        M.FormSelect.init(selectEl3);
-        var selectEl4 = document.getElementById('id_distancing');
-        M.FormSelect.init(selectEl4);
 
     });
 </script>
