@@ -65,22 +65,17 @@ def add_activity(request, user_id):
     new_activity.save()
   return redirect('/accounts/profile', user_id=user_id)
 
+def activites_detail(request, activity_id):
+  activity = Activity.objects.get(id=activity_id)
+  return render(request, 'profile/activity-detail.html', {'activity': activity})
+
+
 class ActivityList(LoginRequiredMixin, ListView):
   model = Activity
-
-class ActivityDetail(LoginRequiredMixin, DetailView):
-  model = Activity
-
-class ActivityUpdate(LoginRequiredMixin, UpdateView):
-  model = Activity
-  fields = '__all__'
 
 class ActivityDelete(LoginRequiredMixin, DeleteView):
   model = Activity
   success_url = '/accounts/profile'
-
-
-
 
 class RoutineList(LoginRequiredMixin, ListView):
   model = Activity

@@ -4,4 +4,4 @@ from .models import Activity
 class ActivityForm(ModelForm):
   class Meta:
     model = Activity
-    fields = ['name', 'number_of_people', 'venue', 'time_length', 'interaction']
+    fields = ['name', 'number_of_people', 'distancing','venue', 'time_length', 'interaction']
