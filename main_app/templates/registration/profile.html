@@ -73,10 +73,39 @@
 
         </div>
 
+
+<div class="col s6">
+        <!-- Form to add users activities to a routine -->
+    <form class="col s12" method="post" action="">{% csrf_token %} 
+      <div class="input-field">
+      <select multiple name="activity">
+      <option disabled="" selected="">SELECT ACTIVITY</option>
+                {% for u in user_activities %}
+                <option title="{{u.title}} value="{{u.title}}"
+                  >{{u.title}}</option
+                >
+                {% endfor %}
+              </select>
+        <input type="date" name="date">
+            </div>
+            <input
+              type="submit"
+              value="ADD TO ROUTINE"
+              class="btn #66bb6a green lighten-1"
+            />
+            <!-- <input
+            type="submit"
+            value="Results"
+            data-target="modal2"
+            class="btn #66bb6a green lighten-1 modal-trigger"
+          />  -->
+          </form>
+      </div>
+
         <!-- List of Saved Routines -->
         <div class="col s6">
             <div class="card-panel">
-                <h4>ROUTINES <span> <a href="/"> <i style="float: right;"  class="btn blue lighten-1 modal-trigger">+</i></a></span></h4>
+                <h4>ROUTINES</h4>
                 <table class="centered" class="responsive-table">
                     <tr>
                         <th>Date</th>
@@ -134,6 +163,11 @@
     }
 </style>
 <script>
+
+$(document).ready(function () {
+    $("select").formSelect();
+  });
+
     $(document).ready(function() {
         $(".modal").modal();
         var selectEl = document.getElementById('id_venue');

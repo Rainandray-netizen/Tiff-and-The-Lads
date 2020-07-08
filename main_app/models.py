@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
 
 VENUE = (
     ('A', 'Outdoor'),
@@ -51,9 +52,5 @@ class Activity(models.Model):
         return self.name
 
 class Routine(models.Model):
-    name = models.CharField(max_length=50)
-    activity = models.ManyToManyField(Activity)
-
-    def __str__(self):
-        return self.name
-
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
+    date = models.DateField(default=datetime.date.today)

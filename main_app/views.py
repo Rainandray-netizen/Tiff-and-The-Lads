@@ -43,11 +43,16 @@ def dashboard(request):
     profile = Profile.objects.get(user=user)
     location = profile.location.lower()
     user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
+    # last_updated = datetime.strptime(user_country['Updated'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime("%m/%d/%y")
+    p = profile.activity_set.all()
+    user_activities = p.values_list('name', flat=True)
     if request.method == 'POST':
         selected_activities = request.POST.getlist('activity')
         for sa in selected_activities:
             activity = list(filter(lambda a: a['activity'] == sa, activities))
         return render(request, 'dashboard.html', {
+            # 'last_updated': last_updated,
+            'user_activities': user_activities,
             'selected_activities': selected_activities,
             'location': location,
             'user_country': user_country,
@@ -58,6 +63,8 @@ def dashboard(request):
     })
     else:
         return render(request, 'dashboard.html', {
+        # 'last_updated': last_updated,
+        'user_activities': user_activities,
         'location': location,
         'user_country': user_country,
         'activities': activities,
@@ -90,7 +97,9 @@ def profile_show(request):
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
   # routine = Routine.objects.filter(user = request.user)
-  return render(request, 'registration/profile.html', {'activity_form': activity_form, 'profile': profile})
+  p = profile.activity_set.all()
+  user_activities = p.values_list('name', flat=True)
+  return render(request, 'registration/profile.html', {'activity_form': activity_form, 'profile': profile, 'user_activities': user_activities})
 
 def add_activity(request, profile_id):
   form = ActivityForm(request.POST)
