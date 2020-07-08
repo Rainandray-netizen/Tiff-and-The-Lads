@@ -4,60 +4,84 @@ body {
     flex-direction: column;
     box-sizing: border-box;
 }
+
 main {
     flex: 1 0 auto;
     display: flex;
     flex-direction: column;
 }
+
 .forms {
     align-self: center;
 }
+
 .nav-wrapper {
     margin: 0 90px 90px 90px;
 }
+
 .page-footer {
     background-color: rgb(30, 97, 136);
     color: white;
     padding: 10px;
     text-align: center;
 }
+
 nav {
     background-color: rgb(30, 97, 136);
 }
+
 .helptext {
     font-size: 10px;
 }
+
 form.signup ul li {
     font-size: 10px;
 }
+
 .card-panel {
     border-radius: 15px;
     font-size: 30px;
     text-align: center;
 }
+
 .data-label {
     text-align: center;
 }
+
 .brand-logo:hover {
     background-color: transparent;
 }
-#modal2-footer {
-    display: flex;
-    justify-content: space-between;
+
+.riskcontainer {
+    width: 100%;
+    background-color: #ddd;
 }
-@media only screen and (max-width: 600px){
+
+.riskcontainer2 {
+    text-align: right;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: white;
+}
+
+.level1 {
+    width: 90%;
+    background-color: #4CAF50;
+}
+
+@media only screen and (max-width: 600px) {
     .card-panel {
         border-radius: 15px;
         font-size: 20px;
         text-align: center;
     }
 }
-@media only screen and (max-width: 950px){
+
+@media only screen and (max-width: 950px) {
     .left {
         display: none;
     }
     .right li a {
         display: none;
     }
-
 }
