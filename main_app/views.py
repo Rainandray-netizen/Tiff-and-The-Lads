@@ -84,11 +84,10 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-# @login_required
-def profile_show(request):
-  profile = Profile.objects.get(user=request.user)
+def profile_show(request, profile_id):
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
+  profile = profile_id
   # routine = Routine.objects.filter(user = request.user)
   return render(request, 'registration/profile.html', {'activity_form': activity_form, 'profile': profile})
 
