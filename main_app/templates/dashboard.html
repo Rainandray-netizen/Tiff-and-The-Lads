@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <h5 class="center">{{location.upper}} STATS</h5>
-    <p class="center">LAST UPDATED: {{user_country.Updated}}</p>
+    <p class="center">LAST UPDATED: </p>
     <div class="col s4">
       <a
         href
@@ -57,24 +57,24 @@
           <select multiple name="activity">
             <!-- Add for loop an generate a value for each activity we have when we have data make sure to add the id of the curent activity to the value too-->
             <option disabled="" selected="">SELECT ACTIVITY</option>
-            {% for a in activities %}
-            <option title="{{a.activity}} value="{{a.activity}}"
-              >{{a.activity}}</option
+            {% for u in user_activities %}
+            <option title="{{u.title}} value="{{u.title}}"
+              >{{u.title}}</option
             >
             {% endfor %}
           </select>
         </div>
         <input
           type="submit"
-          value="Calculate"
+          value="ADD"
           class="btn #66bb6a green lighten-1"
         />
-        <input
+        <!-- <input
         type="submit"
         value="Results"
         data-target="modal2"
         class="btn #66bb6a green lighten-1 modal-trigger"
-      /> 
+      />  -->
       </form></div>
 
 <div class="col s6"><h6>My Routine</h6>
