@@ -75,13 +75,13 @@ def profile_show(request):
   # routine = Routine.objects.filter(user = request.user)
   return render(request, 'registration/profile.html', {'activity_form': activity_form})
 
-def add_activity(request, user_id):
+def add_activity(request, profile_id):
   form = ActivityForm(request.POST)
   if form.is_valid():
     new_activity = form.save(commit=False)
-    new_activity.user_id = user_id
+    new_activity.profile_id = profile_id
     new_activity.save()
-  return redirect('/accounts/profile', user_id=user_id)
+  return redirect('/accounts/profile', profile_id=profile_id)
 
 def activites_detail(request, activity_id):
   activity = Activity.objects.get(id=activity_id)
