@@ -24,7 +24,7 @@ class Profile(models.Model):
     status = models.CharField(max_length=256)
     profile_url = models.CharField(max_length=256)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.name
 
