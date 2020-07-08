@@ -20,7 +20,7 @@
         <li>
             <div class="divider"></div>
         </li>
-
+        <li><a href="{% url 'home' %}">Dashboard</a></li>
         <li><a href="{% url 'show' %}">Profile</a></li>
         <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Logout</a></li>
 
@@ -36,19 +36,20 @@
         <nav class="z-depth-0">
             <div class="nav-wrapper">
                 <a href="#" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a
-            >
-            {% if user.is_authenticated %}
-            <ul class="left">
-              <li>Logged in as {{user.username}}</p></li>
-            </ul>
-            {% endif %}
-            <ul>
-              <li>
-                <a href="/" class="brand-logo center">COVID-19</a>
+       >
+          {% if user.is_authenticated %}
+          <ul class="left">
+            <li>Logged in as {{user.username}}</p></li>
+          </ul>
+          {% endif %}
+          <ul>
+            <li>
+              <a href="/" class="brand-logo center">COVID-19</a>
                 </li>
                 </ul>
                 <ul class="right">
                     {% if user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">Dashboard</a></li>
                     <li><a href="{% url 'show' %}">Profile</a></li>
                     <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}

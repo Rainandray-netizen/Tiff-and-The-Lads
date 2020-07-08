@@ -3,6 +3,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from .covidapi import country_stats_list, global_stats
 from .seed import activities
+from datetime import datetime
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -13,11 +14,26 @@ from .forms import ActivityForm
 
 # Create your views here.
 def home(request):
-  return render(request, 'home.html', {
-    'activities': activities,
-    'global_stats': global_stats,
-    'country_stats': country_stats_list,
-
+    if request.method == 'POST':
+        selected_activity = request.POST.get('activity')
+        if selected_activity:
+            activity = list(filter(lambda a: a['activity'] == selected_activity, activities))
+            return render(request, 'home.html', {
+                'activity': activity,
+                'selected_activity': selected_activity,
+                'activities': activities,
+                'global_stats': global_stats,
+                'country_stats': country_stats_list,
+                'current_date': datetime.date(datetime.now()),
+                })
+        if selected_activity == None:
+            return redirect('home')
+    else:
+        return render(request, 'home.html', {
+        'activities': activities,
+        'global_stats': global_stats,
+        'country_stats': country_stats_list,
+        'current_date': datetime.date(datetime.now()),
 })
 
 def signup(request):
