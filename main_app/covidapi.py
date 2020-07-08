@@ -11,7 +11,7 @@ def fetch_countries():
   data = requests.get('https://api.covid19api.com/summary')
   parsed = json.loads(data.text)
 
-  countries_list=[{'Name' : country['Country'], 'TotalConfirmed' : country['TotalConfirmed'], 'Updated' : country['Date']} for country in parsed['Countries']]
+  countries_list=[{'Name' : country['Country'], 'NewConfirmed' : country['NewConfirmed'], 'TotalConfirmed' : country['TotalConfirmed'], 'NewDeaths' : country['NewDeaths'], 'TotalDeaths' : country['TotalDeaths'], 'NewRecovered' : country['NewRecovered'], 'TotalRecovered' : country['TotalRecovered'], 'Updated' : country['Date']} for country in parsed['Countries']]
   return countries_list
 
 

@@ -20,7 +20,7 @@
         <li>
             <div class="divider"></div>
         </li>
-        <li><a href="{% url 'home' %}">Dashboard</a></li>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         <li><a href="{% url 'show' %}">Profile</a></li>
         <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Logout</a></li>
 
@@ -49,7 +49,7 @@
                 </ul>
                 <ul class="right">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'home' %}">Dashboard</a></li>
+                    <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
                     <li><a href="{% url 'show' %}">Profile</a></li>
                     <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Log Out</a></li>
                     {% else %}
