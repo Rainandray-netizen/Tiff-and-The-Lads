@@ -11,7 +11,9 @@
                 </div>
                 <div class="col s10">
                     <ul>
-                        <li><b>Username: </b> <span>{{user.username}}</span></li>
+                        <li>
+                            <h2> Hello, <span>{{user.username}}</span> </h2>
+                        </li>
                         <li><b>Location: </b> <span>location here</span></li>
                         <li><b>Edit Profile </b></li>
                     </ul>
@@ -42,9 +44,7 @@
                         <td>{{activity.name}}</td>
                         <td>
                             <div class="riskcontainer">
-                                <div class="riskcontainer2 lowrisk">Level {{activity.risk_level}}</div>
-
-
+                                <div class="riskcontainer2">Level {{activity.risk_level}}</div>
                             </div>
                         </td>
                         <td>
@@ -68,19 +68,8 @@
                     <div class="modal-footer">
                     </div>
                 </div>
-
-                <!--   Modal pop up to so you can SEE DETAILS OF AN ACTIVITY -->
-                <div id="modal2" class="modal">
-                    <div class="modal-content">
-                        <h4>Detail Activity:</h4>
-
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">X</a>
-                    </div>
-
-                </div>
             </div>
+
         </div>
 
         <!-- List of Saved Routines -->
@@ -139,19 +128,41 @@
     }
     
     .highrisk {
-        width: 66%;
+        width: 90%;
         background-color: red;
     }
 </style>
 <script>
-    var selectEl = document.getElementById('id_venue');
-    M.FormSelect.init(selectEl);
-    var selectEl2 = document.getElementById('id_interaction');
-    M.FormSelect.init(selectEl2);
+    $(document).ready(function() {
+        function myFunc() {
+            let y = document.querySelector(".riskcontainer2").innerText
+            y = parseInt(y.replace(/\D/g, ''));
+            for (let i = 1; i < 10; i++) {
 
-    var selectEl3 = document.getElementById('id_time_length');
-    M.FormSelect.init(selectEl3);
-    var selectEl4 = document.getElementById('id_distancing');
-    M.FormSelect.init(selectEl4);
+                if (y <= 3) {
+                    console.log("hi")
+                    document.querySelector(".riskcontainer2").classList.add("lowrisk");
+                } else if (y <= 6) {
+                    document.querySelector(".riskcontainer2").classList.add("mediumrisk");
+                } else {
+                    document.querySelector(".riskcontainer2").classList.add("highrisk");
+                }
+            }
+        }
+        myFunc();
+
+        $(".modal").modal();
+
+        var selectEl = document.getElementById('id_venue');
+        M.FormSelect.init(selectEl);
+        var selectEl2 = document.getElementById('id_interaction');
+        M.FormSelect.init(selectEl2);
+
+        var selectEl3 = document.getElementById('id_time_length');
+        M.FormSelect.init(selectEl3);
+        var selectEl4 = document.getElementById('id_distancing');
+        M.FormSelect.init(selectEl4);
+
+    });
 </script>
 {% endblock %}

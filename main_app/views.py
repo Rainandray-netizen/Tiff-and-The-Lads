@@ -57,15 +57,9 @@ def activites_detail(request, activity_id):
 class ActivityList(LoginRequiredMixin, ListView):
   model = Activity
 
-class ActivityDetail(LoginRequiredMixin, DetailView):
-  model = Activity
-
 class ActivityDelete(LoginRequiredMixin, DeleteView):
   model = Activity
   success_url = '/accounts/profile'
-
-
-
 
 class RoutineList(LoginRequiredMixin, ListView):
   model = Activity
