@@ -19,7 +19,7 @@ def home(request):
         selected_activity = request.POST.get('activity')
         activity = list(filter(lambda a: a['activity'] == selected_activity, activities))
         return render(request, 'home.html', {
-            'single_activity': selected_activity,
+            'selected_activity': selected_activity,
             'activity': activity,
             'activities': activities,
             'global_stats': global_stats,
@@ -34,24 +34,40 @@ def home(request):
         'current_date': datetime.date(datetime.now()),
 })
 
+
+
+
+
 def dashboard(request):
     user = request.user
     profile = Profile.objects.get(user=user)
     location = profile.location.lower()
     user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
     if request.method == 'POST':
-        # gets a list of the selected activities from the dropdown 
         selected_activities = request.POST.getlist('activity')
         for sa in selected_activities:
             activity = list(filter(lambda a: a['activity'] == sa, activities))
-    return render(request, 'dashboard.html', {
+        return render(request, 'dashboard.html', {
+            'selected_activities': selected_activities,
+            'location': location,
+            'user_country': user_country,
+            'activities': activities,
+            'activity': activity,
+            'country_stats': country_stats_list,
+            'current_date': datetime.date(datetime.now())
+    })
+    else:
+        return render(request, 'dashboard.html', {
         'location': location,
         'user_country': user_country,
         'activities': activities,
-        'global_stats': global_stats,
         'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now())
     })
+
+
+
+
 
 
 def signup(request):
