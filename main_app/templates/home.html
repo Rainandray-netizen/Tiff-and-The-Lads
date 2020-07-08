@@ -85,8 +85,8 @@
           {% elif activity.0.factor <= 10 and activity.0.factor > 6 %}
           <h4>YOU'RE VERY RISKY</h4>
           {% endif %}
-          {% if selected_activities %}
-          <p><b>{{single_activity}}</b>&nbsphas a <b>{{activity.0.risk}}</b> risk level</p>
+          {% if selected_activity %}
+          <p><b>{{selected_activity}}</b>&nbsphas a <b>{{activity.0.risk}}</b> risk level</p>
           {% else %}
           <p>No activity selected</p>
           {%endif%}
