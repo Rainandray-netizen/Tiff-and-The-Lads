@@ -52,7 +52,7 @@
   <h6>My Activities</h6>
 
   
-  <form class="col s12" method="post" action="{% url 'home' %}">{% csrf_token %} 
+  <form class="col s12" method="post" action="{% url 'dashboard' %}">{% csrf_token %} 
         <div class="input-field">
           <select multiple name="activity">
             <!-- Add for loop an generate a value for each activity we have when we have data make sure to add the id of the curent activity to the value too-->
