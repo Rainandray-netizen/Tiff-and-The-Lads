@@ -56,6 +56,7 @@ class Routine(models.Model):
     date = models.DateField(default=datetime.date.today)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     activity = models.ManyToManyField(Activity)
+    activity_name = models.CharField()
 
     def __str__(self):
         return str(self.activity)

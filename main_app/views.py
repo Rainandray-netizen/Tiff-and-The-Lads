@@ -95,7 +95,7 @@ def routine_delete(request, id):
 # @login_required
 def profile_show(request):
   profile = Profile.objects.get(user=request.user)
-  routine = Routine.objects.all()
+  routine = Routine.objects.filter(profile=profile).values()
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
   # profile = profile_id
@@ -162,11 +162,16 @@ def routine_create(request):
     print(request.user.id)
     profile = Profile.objects.get(user=request.user.id)
     activity = Activity.objects.get(name=request.POST.get('activity'))
+    # activity_id = activity.id
     if request.method == 'POST':
         date = request.POST.get('date')
+        # getting date from the form
         # breakpoint()
-        new_routine = Routine.objects.create(date=date, profile=profile)
-        new_routine.activity.add(activity)
+        new_routine = Routine.objects.create(date=date, profile=profile, activity=activity)
+        # adding the profile and date to the routine objec
+        # new_routine.activity = activity
+        # new_routine.activity.add(activity_id)
+        print(new_routine)
         new_routine.save()
 
 
@@ -177,7 +182,7 @@ def routine_create(request):
         # new_routine.activity.add(a.id)
         # new_routine.save()
         # a.routine_set.create(activity=form_activity, date=date, profile_id=profile_id)
-    return redirect('registration/profile.html', { 'profile': profile})
+    return redirect('/accounts/profile', { 'profile': profile})
 
 
 class RoutineDelete(LoginRequiredMixin, DeleteView):
