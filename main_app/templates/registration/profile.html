@@ -14,7 +14,7 @@
                         <li>
                             <h2> Hello, <span>{{user.username}}</span> </h2>
                         </li>
-                        <li><b>Location: </b> <span>{{ profile.location }}location here</span></li>
+                        <li><b>Location: </b> <span>{{ profile.id }}</span></li>
                         <li><b>Edit Profile </b></li>
                     </ul>
                 </div>
@@ -76,17 +76,20 @@
 
 <div class="col s6">
         <!-- Form to add users activities to a routine -->
-    <form class="col s12" method="post" action="{% url 'routine_create' %}">{% csrf_token %} 
+    <form class="col s12" method="post" action="{% url 'routine_create' %}">
+    {% csrf_token %} 
       <div class="input-field">
       <select multiple name="activity">
       <option disabled="" selected="">SELECT ACTIVITY</option>
-                {% for u in user_activities %}
-                <option title="{{u}} value="{{u}}"
-                  >{{u}}</option
+                {% for u in user_activities %} 
+                {% comment %} routine needs to be local to profile {% endcomment %}
+                <option title="{{u.title}}" value="{{u.title}}" name="activity"
+                  >{{u.title}}</option
                 >
                 {% endfor %}
               </select>
         <input type="date" name="date">
+        <input type="hidden" value="{{profile.id}}" name="profile">
             </div>
             <input
               type="submit"

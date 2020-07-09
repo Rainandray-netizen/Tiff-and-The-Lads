@@ -80,7 +80,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('profile_create')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()
@@ -159,13 +159,26 @@ def activites_detail(request, activity_id):
 
 # @login_required
 def routine_create(request):
-    profile = Profile.objects.get(user=request.user)
+    print(request.user.id)
+    profile = Profile.objects.get(user=request.user.id)
+    activity = Activity.objects.get(name=request.POST.get('activity'))
     if request.method == 'POST':
-        form_activity = request.POST.get('activity')
         date = request.POST.get('date')
-        a = Activity.objects.get(name=form_activity)
-        a.routine_set.create(activity=form_activity ,date=date)
-    return redirect('/accounts/profile', {'form_activity': form_activity, 'date': date, 'profile':profile})
+        # breakpoint()
+        new_routine = Routine.objects.create(date=date, profile=profile)
+        new_routine.activity.add(activity)
+        new_routine.save()
+
+
+        # form_activity = request.POST.get('activity')
+        # form = request.POST
+        # new_routine = profile.routines.create(date=date)
+        # # new_routine.save(commit=False)
+        # new_routine.activity.add(a.id)
+        # new_routine.save()
+        # a.routine_set.create(activity=form_activity, date=date, profile_id=profile_id)
+    return redirect('registration/profile.html', { 'profile': profile})
+
 
 class RoutineDelete(LoginRequiredMixin, DeleteView):
   model = Routine
@@ -184,9 +197,18 @@ class RoutineList(LoginRequiredMixin, ListView):
 class RoutineDetail(LoginRequiredMixin, DetailView):
   model = Activity
 
-
 class RoutineUpdate(LoginRequiredMixin, UpdateView):
   model = Activity
   fields = '__all__'
 
 
+class ProfileCreate(LoginRequiredMixin, CreateView):
+  model = Profile
+  fields = ['name', 'location']
+  success_url = '/accounts/profile/'
+
+  def form_valid(self, form):
+    # Assign the logged in user
+    form.instance.user = self.request.user
+    # Let the CreateView do its job as usual
+    return super().form_valid(form)

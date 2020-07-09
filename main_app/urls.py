@@ -16,6 +16,7 @@ urlpatterns = [
 
     # path('activity/<int:pk>/update/', views.ActivityUpdate.as_view(), name='activity_update'),
     
+    path('profile/create/', views.ProfileCreate.as_view(), name='profile_create'),
 
     path('routine/create/', views.routine_create, name='routine_create'), ## Needs to be reviewed for drag and drop feature
     # path('routine/<int:pk>/update/', views.RoutineUpdate.as_view(), name='routine_update'),
