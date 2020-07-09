@@ -25,7 +25,7 @@ class Profile(models.Model):
     status = models.CharField(max_length=256)
     profile_url = models.CharField(max_length=256)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    
     def __str__(self):
         return self.name
 
@@ -46,6 +46,9 @@ class Activity(models.Model):
         choices=INTERACTION
     ) 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    risk_level = models.IntegerField(
+        default=0
+    )
 
 
     def __str__(self):
@@ -55,5 +58,7 @@ class Routine(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
 
+    class Meta:
+        ordering = ['date']
     # def clean_activity(self):
     #     return self.cleaned_data['activity'].title()

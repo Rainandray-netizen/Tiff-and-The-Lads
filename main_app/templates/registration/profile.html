@@ -14,7 +14,7 @@
                         <li>
                             <h2> Hello, <span>{{user.username}}</span> </h2>
                         </li>
-                        <li><b>Location: </b> <span>location here</span></li>
+                        <li><b>Location: </b> <span>{{ profile.location }}location here</span></li>
                         <li><b>Edit Profile </b></li>
                     </ul>
                 </div>
@@ -63,6 +63,11 @@
                                 <form action="{% url 'activity_create' profile.id %}" method="post">
                                     {% csrf_token %}
                                     {{ activity_form.as_p }}
+                                     <p>
+                                        <label>
+                                            <input id="indeterminate-checkbox" type="checkbox" />
+                                        </label>
+                                    </p>
                                     <input type="submit" class="btn" value="Add Activity">
                                 </form>
                     </div>
