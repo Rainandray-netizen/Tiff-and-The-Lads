@@ -1,9 +1,10 @@
 {% extends 'base.html' %} {% block content %}
 
+
 <div class="container">
   <div class="row">
     <h5 class="center">{{location.upper}} STATS</h5>
-    <p class="center">LAST UPDATED: </p>
+    <p class="center">LAST UPDATED: {{last_updated}}</p>
     <div class="col s4">
       <a
         href
@@ -44,12 +45,20 @@
     </div>
   </div>
 
+<div class="container center">
+  <div class="row">
+    <div class="col 12" style="position: relative; height: 100%; width: 100%;">
+      <canvas id="myChart"></canvas>
+    </div>
+  </div>
+</div>
+
   <div class="container center">
-    <div class="row">
-      <h5 class="center">How Risky Are You?</h5>
-<div class="col s6">
+    <div class="row"><h5 class="center">MY STUFF</h5>
+      {% comment %} 
+<div class="col s6"> {% endcomment %}
   
-  <h6>My Activities</h6>
+  {% comment %} <h6>My Activities</h6>
 
   
   <form class="col s12" method="post" action="{% url 'dashboard' %}">{% csrf_token %} 
@@ -75,21 +84,37 @@
         data-target="modal2"
         class="btn #66bb6a green lighten-1 modal-trigger"
       />  -->
-      </form></div>
+      </form></div> {% endcomment %}
 
-<div class="col s6"><h6>My Routine</h6>
-{{current_date}}
+
+
+<div class="col s6"><h6>My Activities</h6>
   <table class="striped">
     <tbody>
+{% for u in user_activities %}
       <tr>
-        <td></td>
+        <td>{{u}}</td>
       </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% comment %} if the routine has a date equal to todays date then pass them here {% endcomment %}
+
+
+
+<div class="col s6"><h6>Today</h6>
+  <table class="striped">
+    <tbody>
+    <tr>
+      <th class="center">{{current_date}}</th>
+      </tr>
+      {% for a in today_routine%}
       <tr>
-        <td></td>
+        <td>{{a}}</td>
       </tr>
-      <tr>
-        <td></td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
@@ -134,6 +159,53 @@
   $(document).ready(function () {
     $(".modal").modal();
   });
+
+
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        datasets: [{
+            data: [{{user_country.TotalConfirmed}},{{user_country.TotalDeaths}}, {{user_country.TotalRecovered}}],
+            label: 'Total Cases',
+            backgroundColor: "#D54B5F",
+            // This binds the dataset to the left y axis
+            yAxisID: 'left-y-axis'
+        }, {
+            data: [{{user_country.NewConfirmed}},{{user_country.NewDeaths}}, {{user_country.NewRecovered}}],
+            label: 'New Cases',
+            backgroundColor: "#5CA4BF",
+            // This binds the dataset to the right y axis
+            yAxisID: 'right-y-axis'
+        }],
+        labels: ['Confirmed','Deaths','Recovered']
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                id: 'left-y-axis',
+                type: 'linear',
+                position: 'left',
+                ticks: {
+                        min: 0,
+                        beginAtZero: true,
+                        stepSize: 20000
+              }
+            }, {
+                id: 'right-y-axis',
+                type: 'linear',
+                position: 'right',
+                ticks: {
+                        min: 0,
+                        beginAtZero: true,
+                        stepSize: 50
+              }
+            }]
+        }
+    }
+}); 
+
 </script>
 
 {% endblock %}
