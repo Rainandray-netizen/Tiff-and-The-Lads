@@ -31,7 +31,7 @@
             <div class="card-panel">
                 <h4>ACTIVITES<span>  <input style="float: right;" type="submit" class="btn blue lighten-1 modal-trigger" value="+" data-target="modal1" /></span></h4>
 
-                <table class="centered" class="responsive-table">
+                <table class="centered test1" class="responsive-table">
                     <tr>
 
                         <th>Activity</th>
@@ -43,8 +43,8 @@
                     <tr>
                         <td>{{activity.name}}</td>
                         <td>
-                            <div class="riskcontainer">
-                                <div class="riskcontainer2">Level {{activity.risk_level}}</div>
+                            <div class="riskcontainer"> 
+                                <div class="test riskcontainer2"> {{activity.risk_level}}</div>
                             </div>
                         </td>
                         <td>
@@ -120,7 +120,8 @@
                         <td>{{r.date}}</td>
                         <td>
                             <form action="/routine/delete/{{r.id}}" method="POST" >{% csrf_token %} 
-                                <input type="submit" value="delete">
+                
+                                <a href='#' onclick='this.parentNode.submit(); return false;'><i class="material-icons">delete</i></a>
                             </form>
                         </td>
                     </tr>
@@ -188,22 +189,32 @@ $(document).ready(function () {
         M.FormSelect.init(selectEl4);
 
         function myFunc() {
-            let y = document.querySelector(".riskcontainer2").innerText
+          var tablelength =  $(".test1 > tbody > tr").length
+            
+            for (let i = 1; i < tablelength; i++) {
+            let y = document.querySelector(".test").innerText
             y = parseInt(y.replace(/\D/g, ''));
-            for (let i = 1; i < 10; i++) {
-
                 if (y <= 3) {
+                    console.log(y + "low risk")
                     console.log("hi")
-                    document.querySelector(".riskcontainer2").classList.add("lowrisk");
-                } else if (y <= 6) {
-                    document.querySelector(".riskcontainer2").classList.add("mediumrisk");
-                } else {
-                    document.querySelector(".riskcontainer2").classList.add("highrisk");
+                    document.querySelector(".test").classList.add("lowrisk");
+                     document.querySelector(".test").classList.remove("test");
+                     
+                } else if (y <=  6) {
+                     console.log(y + "mid risk")
+                    document.querySelector(".test").classList.add("mediumrisk");
+                     document.querySelector(".test").classList.remove("test");
+                     
+                } else  {
+                            console.log(y + "high risk")
+                    document.querySelector(".test").classList.add("highrisk");
+                     document.querySelector(".test").classList.remove("test");
+                   
                 }
             }
         }
-        myFunc();
-
+        
+myFunc()
 
 
     });
