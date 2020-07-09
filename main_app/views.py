@@ -10,9 +10,13 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from .models import Activity, Routine, Profile
+from .models import Activity, Routine, Profile, Photo
 from django.contrib.auth.models import User
 from .forms import ActivityForm
+import uuid
+import boto3
+S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
+BUCKET = 'covidriskapp'
 
 # Create your views here.
 def home(request):
@@ -34,6 +38,25 @@ def home(request):
         # 'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now()),
 })
+
+def add_photo(request, profile_id):
+    # photo-file will be the "name" attribute on the <input type="file">
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        # need a unique "key" for S3 / needs image file extension too
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        # just in case something goes wrong
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            # build the full url string
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            # we can assign to cat_id or cat (if you have a cat object)
+            photo = Photo(url=url, profile_id=profile_id)
+            photo.save()
+        except:
+            print('An error occurred uploading file to S3')
+    return redirect('/accounts/profile', profile_id=profile_id)
 
 # if the routine has a date equal to todays date then pass them here 
 def dashboard(request):
