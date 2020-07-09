@@ -76,7 +76,7 @@
 
 <div class="col s6">
         <!-- Form to add users activities to a routine -->
-    <form class="col s12" method="post" action="">{% csrf_token %} 
+    <form class="col s12" method="post" action="{% url 'routine_create' %}">{% csrf_token %} 
       <div class="input-field">
       <select multiple name="activity">
       <option disabled="" selected="">SELECT ACTIVITY</option>
@@ -109,22 +109,26 @@
                 <table class="centered" class="responsive-table">
                     <tr>
                         <th>Date</th>
-                        <th>Number of Activites</th>
-                        <th>Overall Risk</th>
-                        <th>Action</th>
+                        <th>Activity</th>
                     </tr>
+                    {% for r in routine %}
                     <tr>
-                        <td>1/1/2020</td>
-                        <td>11</td>
-                        <td>Risk level 1</td>
-                        <td> <i class="material-icons">visibility</i><i class="material-icons">delete</i></td>
+                        <td>{{r.activity}}</td>
+                        <td>{{r.date}}</td>
+                        <td>
+                            <form action="/routine/delete/{{r.id}}" method="POST" >{% csrf_token %} 
+                                <input type="submit" value="delete">
+                            </form>
+                        </td>
                     </tr>
+                    {% endfor %}
                     {% for routine in user.routine_set.all %}
                     <tr>
                         <td>{{routine.activity}}</td>
                         <td>Risk level 1</td>
                         <td>
-                            <a href="#modal2" data-target="modal2" data-toggle="modal"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
+                            <a href="#modal2" data-target="modal2" data-toggle="modal"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a>
+                        </td>
 
                     </tr>
 
