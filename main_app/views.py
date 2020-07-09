@@ -155,7 +155,7 @@ def add_activity(request, profile_id):
   
 def activites_detail(request, activity_id):
   activity = Activity.objects.get(id=activity_id)
-  return render(request, 'profile/activity-detail.html', {'activity': activity})
+  return render(request, '/profile/activity-detail.html', {'activity': activity})
 
 # @login_required
 def routine_create(request):
