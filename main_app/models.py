@@ -54,3 +54,6 @@ class Activity(models.Model):
 class Routine(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.date.today)
+
+    # def clean_activity(self):
+    #     return self.cleaned_data['activity'].title()
