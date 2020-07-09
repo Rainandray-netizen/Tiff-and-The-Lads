@@ -81,10 +81,10 @@
       <div class="input-field">
       <select multiple name="activity">
       <option disabled="" selected="">SELECT ACTIVITY</option>
-                {% for u in user_activities %} 
+                {% for activity in user_activities %} 
                 {% comment %} routine needs to be local to profile {% endcomment %}
-                <option title="{{u.title}}" value="{{u.title}}" name="activity"
-                  >{{u.title}}</option
+                <option title="{{activity}}" value="{{activity}}" name="activity"
+                  >{{u}}</option
                 >
                 {% endfor %}
               </select>
