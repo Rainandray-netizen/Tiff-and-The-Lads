@@ -14,7 +14,7 @@
                         <li>
                             <h2> Hello, <span>{{user.username}}</span> </h2>
                         </li>
-                        <li><b>Location: </b> <span>{{ profile.id }}</span></li>
+                        <li><b>Location: </b> <span>{{ profile.location }}</span></li>
                         <li><b>Edit Profile </b></li>
                     </ul>
                 </div>
@@ -116,8 +116,8 @@
                     </tr>
                     {% for r in routine %}
                     <tr>
-                        <td>{{r.activity}}</td>
                         <td>{{r.date}}</td>
+                        <td>{{r.activity_name}}</td>
                         <td>
                             <form action="/routine/delete/{{r.id}}" method="POST" >{% csrf_token %} 
                 
