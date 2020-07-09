@@ -19,6 +19,11 @@ INTERACTION = (
     ('C', 'High interaction')
 )
 
+BOOL_CHOICES = (
+    (True, 'Yes'),
+    (False, 'No')
+)
+
 class Profile(models.Model):
     name = models.CharField(max_length=50)
     location = models.CharField(max_length=50)
@@ -31,7 +36,9 @@ class Profile(models.Model):
 class Activity(models.Model):
     name = models.CharField(max_length=50)
     number_of_people = models.IntegerField()
-    distancing = models.BooleanField(default=False)
+    distancing = models.BooleanField(
+        choices=BOOL_CHOICES
+        )
     venue = models.CharField(
         max_length=1,
         choices=VENUE
@@ -56,8 +63,9 @@ class Routine(models.Model):
     date = models.DateField(default=datetime.date.today)
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     activity = models.ManyToManyField(Activity)
+    activity_name = models.CharField(max_length=50)
 
-    # def __str__(self):
-    #     return str(self.activity)
+    def __str__(self):
+        return str(self.activity)
     class Meta:
         ordering = ['date']
