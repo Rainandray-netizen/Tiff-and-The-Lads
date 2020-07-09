@@ -69,3 +69,10 @@ class Routine(models.Model):
         return str(self.activity)
     class Meta:
         ordering = ['date']
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for profile: {self.profile_id} @{self.url}"
