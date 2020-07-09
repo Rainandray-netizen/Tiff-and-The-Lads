@@ -34,10 +34,6 @@ def home(request):
         'current_date': datetime.date(datetime.now()),
 })
 
-
-
-
-
 def dashboard(request):
     user = request.user
     profile = Profile.objects.get(user=user)
@@ -72,11 +68,6 @@ def dashboard(request):
         'current_date': datetime.date(datetime.now())
     })
 
-
-
-
-
-
 def signup(request):
   error_message = ''
   if request.method == 'POST':
@@ -91,15 +82,21 @@ def signup(request):
   context = {'form': form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
+def routine_delete(request, id):
+    routine = Routine.objects.get(id=id)
+    routine.delete()
+    return redirect('/accounts/profile')
+
 # @login_required
 def profile_show(request):
   profile = Profile.objects.get(user=request.user)
+  routine = Routine.objects.all()
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
   # routine = Routine.objects.filter(user = request.user)
   p = profile.activity_set.all()
   user_activities = p.values_list('name', flat=True)
-  return render(request, 'registration/profile.html', {'activity_form': activity_form, 'profile': profile, 'user_activities': user_activities})
+  return render(request, 'registration/profile.html', {'activity_form': activity_form, 'profile': profile, 'user_activities': user_activities, 'routine': routine})
 
 def add_activity(request, profile_id):
   form = ActivityForm(request.POST)
@@ -113,6 +110,19 @@ def activites_detail(request, activity_id):
   activity = Activity.objects.get(id=activity_id)
   return render(request, 'profile/activity-detail.html', {'activity': activity})
 
+# @login_required
+def routine_create(request):
+    profile = Profile.objects.get(user=request.user)
+    if request.method == 'POST':
+        form_activity = request.POST.get('activity')
+        date = request.POST.get('date')
+        a = Activity.objects.get(name=form_activity)
+        a.routine_set.create(activity=form_activity ,date=date)
+    return redirect('/accounts/profile', {'form_activity': form_activity, 'date': date, 'profile':profile})
+
+class RoutineDelete(LoginRequiredMixin, DeleteView):
+  model = Routine
+  success_url = '/accounts/profile'
 
 class ActivityList(LoginRequiredMixin, ListView):
   model = Activity
@@ -127,14 +137,9 @@ class RoutineList(LoginRequiredMixin, ListView):
 class RoutineDetail(LoginRequiredMixin, DetailView):
   model = Activity
 
-class RoutineCreate(LoginRequiredMixin, CreateView):
-  model = Activity
-  fields = '__all__'
 
 class RoutineUpdate(LoginRequiredMixin, UpdateView):
   model = Activity
   fields = '__all__'
 
-class RoutineDelete(LoginRequiredMixin, DeleteView):
-  model = Activity
-  success_url = '/profile/index/'
+
