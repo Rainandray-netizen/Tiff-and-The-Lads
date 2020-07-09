@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .covidapi import country_stats_list, global_stats
 from .seed import activities
 from datetime import datetime
+from dateutil.parser import parse
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
@@ -34,20 +35,23 @@ def home(request):
         'current_date': datetime.date(datetime.now()),
 })
 
+# if the routine has a date equal to todays date then pass them here 
 def dashboard(request):
     user = request.user
     profile = Profile.objects.get(user=user)
     location = profile.location.lower()
     user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
-    # last_updated = datetime.strptime(user_country['Updated'], '%Y-%m-%dT%H:%M:%S.%fZ').strftime("%m/%d/%y")
+    last_updated = parse(user_country['Updated'])
     p = profile.activity_set.all()
     user_activities = p.values_list('name', flat=True)
+    routine = Routine.objects.filter(date=datetime.date(datetime.now()))
     if request.method == 'POST':
         selected_activities = request.POST.getlist('activity')
         for sa in selected_activities:
             activity = list(filter(lambda a: a['activity'] == sa, activities))
         return render(request, 'dashboard.html', {
-            # 'last_updated': last_updated,
+            'today_routine': routine,
+            'last_updated': last_updated,
             'user_activities': user_activities,
             'selected_activities': selected_activities,
             'location': location,
@@ -59,7 +63,8 @@ def dashboard(request):
     })
     else:
         return render(request, 'dashboard.html', {
-        # 'last_updated': last_updated,
+        'today_routine': routine,
+        'last_updated': last_updated,
         'user_activities': user_activities,
         'location': location,
         'user_country': user_country,
