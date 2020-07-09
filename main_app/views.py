@@ -162,28 +162,11 @@ def routine_create(request):
     print(request.user.id)
     profile = Profile.objects.get(user=request.user.id)
     activity = Activity.objects.get(name=request.POST.get('activity'))
-    # activity_id = activity.id
     if request.method == 'POST':
         date = request.POST.get('date')
-        # getting date from the form
-        # breakpoint()
-        new_routine = Routine.objects.create(date=date, profile=profile, activity=activity)
-        # adding the profile and date to the routine objec
-        # new_routine.activity = activity
-        # new_routine.activity.add(activity_id)
+        new_routine = Routine.objects.create(date=date, profile=profile, activity_name=activity)
         print(new_routine)
-        new_routine.save()
-
-
-        # form_activity = request.POST.get('activity')
-        # form = request.POST
-        # new_routine = profile.routines.create(date=date)
-        # # new_routine.save(commit=False)
-        # new_routine.activity.add(a.id)
-        # new_routine.save()
-        # a.routine_set.create(activity=form_activity, date=date, profile_id=profile_id)
     return redirect('/accounts/profile', { 'profile': profile})
-
 
 class RoutineDelete(LoginRequiredMixin, DeleteView):
   model = Routine
@@ -205,7 +188,6 @@ class RoutineDetail(LoginRequiredMixin, DetailView):
 class RoutineUpdate(LoginRequiredMixin, UpdateView):
   model = Activity
   fields = '__all__'
-
 
 class ProfileCreate(LoginRequiredMixin, CreateView):
   model = Profile
