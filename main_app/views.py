@@ -199,3 +199,7 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
     form.instance.user = self.request.user
     # Let the CreateView do its job as usual
     return super().form_valid(form)
+
+class ProfileUpdate(UpdateView):
+  model = Profile
+  fields = ['name', 'location']
