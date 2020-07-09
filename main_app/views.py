@@ -93,6 +93,7 @@ def profile_show(request):
   routine = Routine.objects.all()
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
+  profile = profile_id
   # routine = Routine.objects.filter(user = request.user)
   p = profile.activity_set.all()
   user_activities = p.values_list('name', flat=True)
