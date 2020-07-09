@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .covidapi import country_stats_list, global_stats
+# from .covidapi import country_stats_list, global_stats
 from .seed import activities
 from datetime import datetime
 from dateutil.parser import parse
@@ -23,15 +23,15 @@ def home(request):
             'selected_activity': selected_activity,
             'activity': activity,
             'activities': activities,
-            'global_stats': global_stats,
-            'country_stats': country_stats_list,
+            # 'global_stats': global_stats,
+            # 'country_stats': country_stats_list,
             'current_date': datetime.date(datetime.now()),
             })
     else:
         return render(request, 'home.html', {
         'activities': activities,
-        'global_stats': global_stats,
-        'country_stats': country_stats_list,
+        # 'global_stats': global_stats,
+        # 'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now()),
 })
 
@@ -40,8 +40,8 @@ def dashboard(request):
     user = request.user
     profile = Profile.objects.get(user=user)
     location = profile.location.lower()
-    user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
-    last_updated = parse(user_country['Updated'])
+    # user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
+    # last_updated = parse(user_country['Updated'])
     p = profile.activity_set.all()
     user_activities = p.values_list('name', flat=True)
     routine = Routine.objects.filter(date=datetime.date(datetime.now()))
@@ -51,25 +51,25 @@ def dashboard(request):
             activity = list(filter(lambda a: a['activity'] == sa, activities))
         return render(request, 'dashboard.html', {
             'today_routine': routine,
-            'last_updated': last_updated,
+            # 'last_updated': last_updated,
             'user_activities': user_activities,
             'selected_activities': selected_activities,
             'location': location,
             'user_country': user_country,
             'activities': activities,
             'activity': activity,
-            'country_stats': country_stats_list,
+            # 'country_stats': country_stats_list,
             'current_date': datetime.date(datetime.now())
     })
     else:
         return render(request, 'dashboard.html', {
         'today_routine': routine,
-        'last_updated': last_updated,
+        # 'last_updated': last_updated,
         'user_activities': user_activities,
         'location': location,
-        'user_country': user_country,
+        # 'user_country': user_country,
         'activities': activities,
-        'country_stats': country_stats_list,
+        # 'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now())
     })
 
@@ -98,7 +98,7 @@ def profile_show(request):
   routine = Routine.objects.all()
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
-  profile = profile_id
+  # profile = profile_id
   # routine = Routine.objects.filter(user = request.user)
   p = profile.activity_set.all()
   user_activities = p.values_list('name', flat=True)
