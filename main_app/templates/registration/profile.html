@@ -63,11 +63,6 @@
                                 <form action="{% url 'activity_create' profile.id %}" method="post">
                                     {% csrf_token %}
                                     {{ activity_form.as_p }}
-                                     <p>
-                                        <label>
-                                            <input id="indeterminate-checkbox" type="checkbox" />
-                                        </label>
-                                    </p>
                                     <input type="submit" class="btn" value="Add Activity">
                                 </form>
                     </div>
