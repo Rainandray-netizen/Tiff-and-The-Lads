@@ -14,6 +14,7 @@ urlpatterns = [
     path('accounts/<int:pk>/delete/', views.ActivityDelete.as_view(), name='activity_delete'),
     path('accounts/<int:activity_id>/activities', views.activites_detail, name='detail'),
 
+    path('accounts/<int:profile_id>/add_photo/', views.add_photo, name='add_photo'),
     # path('activity/<int:pk>/update/', views.ActivityUpdate.as_view(), name='activity_update'),
     
     path('profile/create/', views.ProfileCreate.as_view(), name='profile_create'),
