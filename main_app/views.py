@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-# from .covidapi import country_stats_list, global_stats
+from .covidapi import country_stats_list, global_stats
 from .seed import activities
 from datetime import datetime
 from dateutil.parser import parse
