@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
-from .covidapi import country_stats_list, global_stats
+# from .covidapi import country_stats_list, global_stats
 from .seed import activities
 from datetime import datetime
 from dateutil.parser import parse
@@ -23,15 +23,15 @@ def home(request):
             'selected_activity': selected_activity,
             'activity': activity,
             'activities': activities,
-            'global_stats': global_stats,
-            'country_stats': country_stats_list,
+            # 'global_stats': global_stats,
+            # 'country_stats': country_stats_list,
             'current_date': datetime.date(datetime.now()),
             })
     else:
         return render(request, 'home.html', {
         'activities': activities,
-        'global_stats': global_stats,
-        'country_stats': country_stats_list,
+        # 'global_stats': global_stats,
+        # 'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now()),
 })
 
@@ -40,8 +40,8 @@ def dashboard(request):
     user = request.user
     profile = Profile.objects.get(user=user)
     location = profile.location.lower()
-    user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
-    last_updated = parse(user_country['Updated'])
+    # user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
+    # last_updated = parse(user_country['Updated'])
     p = profile.activity_set.all()
     user_activities = p.values_list('name', flat=True)
     routine = Routine.objects.filter(date=datetime.date(datetime.now()))
@@ -58,18 +58,18 @@ def dashboard(request):
             'user_country': user_country,
             'activities': activities,
             'activity': activity,
-            'country_stats': country_stats_list,
+            # 'country_stats': country_stats_list,
             'current_date': datetime.date(datetime.now())
     })
     else:
         return render(request, 'dashboard.html', {
         'today_routine': routine,
-        'last_updated': last_updated,
+        # 'last_updated': last_updated,
         'user_activities': user_activities,
         'location': location,
-        'user_country': user_country,
+        # 'user_country': user_country,
         'activities': activities,
-        'country_stats': country_stats_list,
+        # 'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now())
     })
 
@@ -80,7 +80,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('index')
+      return redirect('profile_create')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()
@@ -98,7 +98,7 @@ def profile_show(request):
   routine = Routine.objects.all()
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
-  profile = profile_id
+  # profile = profile_id
   # routine = Routine.objects.filter(user = request.user)
   p = profile.activity_set.all()
   user_activities = p.values_list('name', flat=True)
@@ -159,13 +159,26 @@ def activites_detail(request, activity_id):
 
 # @login_required
 def routine_create(request):
-    profile = Profile.objects.get(user=request.user)
+    print(request.user.id)
+    profile = Profile.objects.get(user=request.user.id)
+    activity = Activity.objects.get(name=request.POST.get('activity'))
     if request.method == 'POST':
-        form_activity = request.POST.get('activity')
         date = request.POST.get('date')
-        a = Activity.objects.get(name=form_activity)
-        a.routine_set.create(activity=form_activity ,date=date)
-    return redirect('/accounts/profile', {'form_activity': form_activity, 'date': date, 'profile':profile})
+        # breakpoint()
+        new_routine = Routine.objects.create(date=date, profile=profile)
+        new_routine.activity.add(activity)
+        new_routine.save()
+
+
+        # form_activity = request.POST.get('activity')
+        # form = request.POST
+        # new_routine = profile.routines.create(date=date)
+        # # new_routine.save(commit=False)
+        # new_routine.activity.add(a.id)
+        # new_routine.save()
+        # a.routine_set.create(activity=form_activity, date=date, profile_id=profile_id)
+    return redirect('registration/profile.html', { 'profile': profile})
+
 
 class RoutineDelete(LoginRequiredMixin, DeleteView):
   model = Routine
@@ -184,9 +197,18 @@ class RoutineList(LoginRequiredMixin, ListView):
 class RoutineDetail(LoginRequiredMixin, DetailView):
   model = Activity
 
-
 class RoutineUpdate(LoginRequiredMixin, UpdateView):
   model = Activity
   fields = '__all__'
 
 
+class ProfileCreate(LoginRequiredMixin, CreateView):
+  model = Profile
+  fields = ['name', 'location']
+  success_url = '/accounts/profile/'
+
+  def form_valid(self, form):
+    # Assign the logged in user
+    form.instance.user = self.request.user
+    # Let the CreateView do its job as usual
+    return super().form_valid(form)
