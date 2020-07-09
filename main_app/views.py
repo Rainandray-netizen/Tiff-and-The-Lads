@@ -155,7 +155,7 @@ def add_activity(request, profile_id):
   
 def activites_detail(request, activity_id):
   activity = Activity.objects.get(id=activity_id)
-  return render(request, 'profile/activity-detail.html', {'activity': activity})
+  return render(request, '/profile/activity-detail.html', {'activity': activity})
 
 # @login_required
 def routine_create(request):
@@ -177,7 +177,7 @@ def routine_create(request):
         # new_routine.activity.add(a.id)
         # new_routine.save()
         # a.routine_set.create(activity=form_activity, date=date, profile_id=profile_id)
-    return redirect('registration/profile.html', { 'profile': profile})
+    return redirect('/registration/profile.html', { 'profile': profile})
 
 
 class RoutineDelete(LoginRequiredMixin, DeleteView):
