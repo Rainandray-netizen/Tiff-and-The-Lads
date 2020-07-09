@@ -51,7 +51,7 @@ def dashboard(request):
             activity = list(filter(lambda a: a['activity'] == sa, activities))
         return render(request, 'dashboard.html', {
             'today_routine': routine,
-            'last_updated': last_updated,
+            # 'last_updated': last_updated,
             'user_activities': user_activities,
             'selected_activities': selected_activities,
             'location': location,
