@@ -98,19 +98,61 @@ def profile_show(request):
   routine = Routine.objects.all()
   # activities = Activities.objects.filter(user = request.user)
   activity_form = ActivityForm()
+  profile = profile_id
   # routine = Routine.objects.filter(user = request.user)
   p = profile.activity_set.all()
   user_activities = p.values_list('name', flat=True)
   return render(request, 'registration/profile.html', {'activity_form': activity_form, 'profile': profile, 'user_activities': user_activities, 'routine': routine})
 
 def add_activity(request, profile_id):
-  form = ActivityForm(request.POST)
-  if form.is_valid():
-    new_activity = form.save(commit=False)
-    new_activity.profile_id = profile_id
-    new_activity.save()
-  return redirect('/accounts/profile', profile_id=profile_id)
+  if request.method == 'POST':
+    number_of_people = request.POST.get('number_of_people')
+    distancing = request.POST.get('distancing')
+    venue = request.POST.get('venue')
+    time_length = request.POST.get('time_length')
+    interaction = request.POST.get('interaction')
+    risk_score = 0
+    if int(number_of_people) <= 5:
+      risk_score += 3
+    elif int(number_of_people) > 5 and int(number_of_people) <= 10: 
+      risk_score += 5
+    elif int(number_of_people) > 10 and int(number_of_people) <= 15:
+      risk_score += 6
+    else:
+      risk_score += 8
 
+    if distancing == False:
+      risk_score += 7
+    else: 
+      risk_score += 3
+
+    if venue == 'A':
+      risk_score += 3
+    else:
+      risk_score += 7
+
+    if time_length == 'A':
+      risk_score += 3
+    elif time_length == 'B':
+      risk_score += 5
+    else:
+      risk_score += 8
+
+    if interaction == 'A':
+      risk_score += 3
+    elif interaction == 'B':
+      risk_score += 5
+    else:
+      risk_score += 8
+    risk_score = risk_score / 4
+    form = ActivityForm(request.POST)
+    if form.is_valid():
+      new_activity = form.save(commit=False)
+      new_activity.profile_id = profile_id
+      new_activity.risk_level= risk_score
+      new_activity.save()
+  return redirect('/accounts/profile', profile_id=profile_id)
+  
 def activites_detail(request, activity_id):
   activity = Activity.objects.get(id=activity_id)
   return render(request, 'profile/activity-detail.html', {'activity': activity})
