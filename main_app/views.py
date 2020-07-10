@@ -246,3 +246,4 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 class ProfileUpdate(UpdateView):
   model = Profile
   fields = ['name', 'location']
+  success_url = '/accounts/profile/'
