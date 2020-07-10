@@ -62,7 +62,8 @@ Click [here](https://howrisky.herokuapp.com/) to view a demo
 - Web scraping using BeautifulSoup to get information, recommendations and safety precautions 
 - Connect a country API to provide seamless selection of countries when creating a profile and minimize mistakes
 - Ability to add multiple activities to one routine 
-- Add error handling
+- Add error handling (Currently, if there are errors they are handled pretty poorly)
+- Fix the profile picture feature (Currently, it won't resize and if you upload another picture it does not update the current one)
 
 ## Contributors
 <a href="https://github.com/Rainandray-netizen/Tiff-and-The-Lads/graphs/contributors">
