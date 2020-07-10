@@ -64,6 +64,7 @@ Click [here](https://howrisky.herokuapp.com/) to view a demo
 - Ability to add multiple activities to one routine 
 - Add error handling (Currently, if there are errors they are handled pretty poorly)
 - Fix the profile picture feature (Currently, it won't resize and if you upload another picture it does not update the current one)
+- Get a better API with more data. Our original API got rate limited so we switched to another one that provides less statistics.
 
 ## Contributors
 <a href="https://github.com/Rainandray-netizen/Tiff-and-The-Lads/graphs/contributors">
