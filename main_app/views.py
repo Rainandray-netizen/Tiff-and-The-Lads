@@ -23,15 +23,15 @@ def home(request):
             'selected_activity': selected_activity,
             'activity': activity,
             'activities': activities,
-            # 'global_stats': global_stats,
-            # 'country_stats': country_stats_list,
+            'global_stats': global_stats,
+            'country_stats': country_stats_list,
             'current_date': datetime.date(datetime.now()),
             })
     else:
         return render(request, 'home.html', {
         'activities': activities,
-        # 'global_stats': global_stats,
-        # 'country_stats': country_stats_list,
+        'global_stats': global_stats,
+        'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now()),
 })
 
@@ -40,36 +40,44 @@ def dashboard(request):
     user = request.user
     profile = Profile.objects.get(user=user)
     location = profile.location.lower()
-    # user_country = next(country for country in country_stats_list if country['Name'].lower() == location)
-    # last_updated = parse(user_country['Updated'])
+    # Get country data from API with NA for data that is not available
+    user_country_with_NA = next(country for country in country_stats_list if country['Name'].lower() == location)
+    # Get the last updated that is available from user_country_with_NA because country_values only returns values so cant query by the key
+    last_updated = user_country_with_NA['Updated']
+    # Retrives the values for the given country in a list
+    country_values = list(user_country_with_NA.values())
+    # Goes through the list to find NA and replaces it with 0 (need this because the graph wont work if a value is a string and these values differ for different countries)
+    user_country = list(map(lambda na:0 if na=="NA" else na, country_values))
     p = profile.activity_set.all()
     user_activities = p.values_list('name', flat=True)
-    routine = Routine.objects.filter(date=datetime.date(datetime.now()))
+    routine = Routine.objects.filter(profile=profile, date=datetime.date(datetime.now())).values_list(('activity_name'))
     if request.method == 'POST':
         selected_activities = request.POST.getlist('activity')
         for sa in selected_activities:
             activity = list(filter(lambda a: a['activity'] == sa, activities))
         return render(request, 'dashboard.html', {
+            'user_country_with_NA': user_country_with_NA,
             'today_routine': routine,
-            # 'last_updated': last_updated,
+            'last_updated': last_updated,
             'user_activities': user_activities,
             'selected_activities': selected_activities,
             'location': location,
             'user_country': user_country,
             'activities': activities,
             'activity': activity,
-            # 'country_stats': country_stats_list,
+            'country_stats': country_stats_list,
             'current_date': datetime.date(datetime.now())
     })
     else:
         return render(request, 'dashboard.html', {
+        'user_country_with_NA': user_country_with_NA,
         'today_routine': routine,
-        # 'last_updated': last_updated,
+        'last_updated': last_updated,
         'user_activities': user_activities,
         'location': location,
-        # 'user_country': user_country,
+        'user_country': user_country,
         'activities': activities,
-        # 'country_stats': country_stats_list,
+        'country_stats': country_stats_list,
         'current_date': datetime.date(datetime.now())
     })
 
