@@ -222,6 +222,11 @@ class ActivityDelete(LoginRequiredMixin, DeleteView):
   model = Activity
   success_url = '/accounts/profile'
 
+class ActivityUpdate(UpdateView):
+  model = Activity
+  fields = ['name', 'number_of_people', 'distancing','venue', 'time_length', 'interaction']
+  success_url = '/accounts/profile'
+
 class RoutineList(LoginRequiredMixin, ListView):
   model = Activity
 
@@ -246,3 +251,4 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 class ProfileUpdate(UpdateView):
   model = Profile
   fields = ['name', 'location']
+  success_url = '/accounts/profile'

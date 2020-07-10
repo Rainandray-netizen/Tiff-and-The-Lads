@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" >
+
+{% csrf_token %}
+{{form.as_p}} 
+<button type="submit" class="btn btn-default">Submit</button></form>
+<script>
+$(document).ready(function() {
+var selectEl = document.getElementById('id_venue');
+    M.FormSelect.init(selectEl);
+    var selectEl2 = document.getElementById('id_interaction');
+    M.FormSelect.init(selectEl2);
+    var selectEl3 = document.getElementById('id_time_length');
+    M.FormSelect.init(selectEl3);
+    var selectEl4 = document.getElementById('id_distancing');
+    M.FormSelect.init(selectEl4);
+});
+</script>
+{% endblock %}

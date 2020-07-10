@@ -68,7 +68,9 @@
                             </div>
                         </td>
                         <td>
-                            <a href="{% url 'detail' activity.id %}"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
+                            <a href="{% url 'activity_create' activity.id %}"><i class="material-icons">rotate_left</i></a>
+                            <a href="{% url 'detail' activity.id %}"><i class="material-icons">visibility</i></a> 
+                            <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
                     </tr>
 
                     {% endfor %}
