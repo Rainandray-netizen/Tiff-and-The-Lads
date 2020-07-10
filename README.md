@@ -50,14 +50,13 @@ Data for risk factor calculations were sourced from CDC [here](https://www.cdc.g
 - [ERD]()
 
 ## Screenshots
-<img src=""/>
-<img src=""/>
-<img src=""/>
-<img src=""/>
-<img src=""/>
+<img src="/imgs/home.png/" caption="Homepage"/>
+<img src="/imgs/dashboard.png/" caption="User Dashboard"/>
+<img src="/imgs/profile2.png/" caption="User Profile"/>
+<img src="/imgs/profile.png/" caption="User Profile Activities and Routines"/>
 
 ## Getting Started 
-Click [here]() to view a demo 
+Click [here](https://howrisky.herokuapp.com/) to view a demo 
 
 ## Next Steps
 - Web scraping using BeautifulSoup to get information, recommendations and safety precautions 
