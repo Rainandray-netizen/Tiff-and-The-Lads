@@ -34,7 +34,7 @@
                         <li>
                             <h2> Hello, <span>{{user.username}}</span> </h2>
                         </li>
-                        <li><b>Location: </b> <span>{{ profile.location }}</span></li>
+                        <li><b>Country: </b> <span>{{ profile.location }}</span></li>
                         <li><a href="{% url 'profile_update' profile.id %}" class="waves-effect waves-light btn-small" >Edit Profile</a></li>
                     </ul>
                 </div>
@@ -68,7 +68,7 @@
                             </div>
                         </td>
                         <td>
-                            <a href="{% url 'activity_create' activity.id %}"><i class="material-icons">rotate_left</i></a>
+                            <a href="{% url 'activity_update' activity.id %}"><i class="material-icons">rotate_left</i></a>
                             <a href="{% url 'detail' activity.id %}"><i class="material-icons">visibility</i></a> 
                             <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
                     </tr>
