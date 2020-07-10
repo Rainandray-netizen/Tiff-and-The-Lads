@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COVID</title>
+    <title>How Risky Are You?</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -24,7 +24,7 @@
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         <li><a href="{% url 'show' %}">Profile</a></li>
-        <li><a onclick="M.toast({html: 'You are logged out'})" href="{% url 'logout' %}">Logout</a></li>
+        <li><a onclick="M.toast({html: 'Logging Out...'})" href="{% url 'logout' %}">Logout</a></li>
 
         <li><a class="waves-effect" href="#!">Settings</a></li>
         {% else %}
@@ -46,7 +46,7 @@
           {% endif %}
           <ul>
             <li>
-              <a href="/" class="brand-logo center">COVID-19</a>
+              <a href="/" class="brand-logo center">HOW RISKY ARE YOU?</a>
                 </li>
                 </ul>
                 <ul class="right">
