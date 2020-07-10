@@ -97,6 +97,7 @@ def dashboard(request):
             'today_routine': routine,
             'last_updated': last_updated,
             'user_activities': user_activities,
+            'global_stats': global_stats,
             'selected_activities': selected_activities,
             'location': location,
             'user_country': user_country,
@@ -112,6 +113,7 @@ def dashboard(request):
         'last_updated': last_updated,
         'user_activities': user_activities,
         'location': location,
+        'global_stats': global_stats,
         'user_country': user_country,
         'activities': activities,
         'country_stats': country_stats_list,
@@ -230,6 +232,11 @@ class ActivityDelete(LoginRequiredMixin, DeleteView):
   model = Activity
   success_url = '/accounts/profile'
 
+class ActivityUpdate(UpdateView):
+  model = Activity
+  fields = ['name', 'number_of_people', 'distancing','venue', 'time_length', 'interaction']
+  success_url = '/accounts/profile'
+  
 class RoutineList(LoginRequiredMixin, ListView):
   model = Activity
 
