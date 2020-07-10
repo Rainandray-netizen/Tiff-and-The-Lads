@@ -26,7 +26,7 @@
         <li><a href="{% url 'show' %}">Profile</a></li>
         <li><a onclick="M.toast({html: 'Logging Out...'})" href="{% url 'logout' %}">Logout</a></li>
 
-        <li><a class="waves-effect" href="#!">Settings</a></li>
+        {% comment %} <li><a class="waves-effect" href="#!">Settings</a></li> {% endcomment %}
         {% else %}
         <li><a href="{% url 'login' %}">Login</a></li>
         <li><a href="{% url 'signup' %}">Sign Up</a></li>

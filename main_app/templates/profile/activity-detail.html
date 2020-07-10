@@ -8,30 +8,29 @@
                 <h2>Activity: {{activity.name}}</h2>
                 <tr>
 
-                    <th>Number of People</th>
-                    <th>Distancing</th>
-                    <th>Venue</th>
-                    <th>Time </th>
-                    <th>Interaction</th>
-                    <th>Risk Level</th>
-
+                    <th>Number of People</th>   
+                    <td>{{activity.number_of_people}}</td>
                 </tr>
                 <tr>
-
-                    <td>{{activity.number_of_people}}</td>
-
+                    <th>Distancing</th>
                     <td>{{activity.get_distancing_display}}</td>
-
-                    <td>{{activity.get_venue_display}}</td>
-
-                    <td>{{activity.get_time_length_display}}</td>
-
-                    <td>{{activity.get_interaction_display}}</td>
-
-                    <td>{{activity.risk_level}}</td>
-
-
                 </tr>
+                <tr>
+                    <th>Venue</th>
+                    <td>{{activity.get_venue_display}}</td>
+                </tr>
+                 <tr>
+                    <th>Time </th>
+                    <td>{{activity.get_time_length_display}}</td>
+                 </tr>
+                  <tr>
+                    <th>Interaction</th> 
+                    <td>{{activity.get_interaction_display}}</td>
+                 </tr>
+                  <tr>
+                    <th>Risk Level</th>
+                    <td>{{activity.risk_level}}</td>
+                 </tr>
             </table>
 
         </div>
