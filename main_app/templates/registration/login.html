@@ -2,10 +2,17 @@
 <section class="forms">
   <h4>Log In</h4>
   <form class="login" method="post" action="{% url 'login' %}">
-    {% csrf_token %} {{ form.as_p }}
-    <input type="submit" class="btn" value="login" />
+    {% csrf_token %} {{ form }}
+    <div class="center">
+    <input type="submit" class="btn blue" value="login" />
+    </div>
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
 </section>
-
+<div class="center">
+    <small>
+      Don't Have An Account?
+      <a class="ml-2" href="{% url 'signup' %}">Sign Up</a>
+    </small>
+  </div>
 {% endblock %}

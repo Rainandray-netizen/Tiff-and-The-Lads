@@ -2,9 +2,9 @@
 
 <div class="content-section">
     <div class="media">
-        <div class="card-panel grey lighten-5 z-depth-1">
+        <div class="card-panel">
             <div class="row valign-wrapper">
-                <div class="col s3">
+                <div class="col s4">
                     <!-- Profile image - with the circle class -->
                 {% for photo in profile.photo_set.all %}
                 <img class="responsive-img circle" src="{{photo.url}}">
@@ -21,7 +21,7 @@
     {% csrf_token %}
     <input type="file" name="photo-file">
     <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
+    <input type="submit" class="btn blue" value="Upload Photo">
 </form>
                     </div>
                     <div class="modal-footer">
@@ -35,7 +35,7 @@
                             <h2> Hello, <span>{{profile.name}}</span> </h2>
                         </li>
                         <li><b>Country: </b> <span>{{ profile.location }}</span></li>
-                        <li><a href="{% url 'profile_update' profile.id %}" class="waves-effect waves-light btn-small" >Edit Profile</a></li>
+                        <li><a href="{% url 'profile_update' profile.id %}" class="waves-effect waves-light btn-small blue" >Edit Profile</a></li>
                     </ul>
                 </div>
             </div>
@@ -49,7 +49,7 @@
     <div class="col s12">
         <div class="col s6">
             <div class="card-panel">
-                <h4>ACTIVITES<span>  <input style="float: right;" type="submit" class="btn blue lighten-1 modal-trigger" value="+" data-target="modal1" /></span></h4>
+                <h5>ACTIVITIES<span>  <input style="float: right;" type="submit" class="btn blue lighten-1 modal-trigger" value="+" data-target="modal1" /></span></h5>
 
                 <table class="centered test1" class="responsive-table">
                     <tr>
@@ -84,7 +84,7 @@
                                 <form action="{% url 'activity_create' profile.id %}" method="post">
                                     {% csrf_token %}
                                     {{ activity_form.as_p }}
-                                    <input type="submit" class="btn" value="Add Activity">
+                                    <input type="submit" class="btn blue" value="Add Activity">
                                 </form>
                     </div>
                     <div class="modal-footer">
@@ -95,41 +95,37 @@
         </div>
 
 
+
+
+ 
+
+        <!-- List of Saved Routines -->
 <div class="col s6">
-        <!-- Form to add users activities to a routine -->
-    <form class="col s12" method="post" action="{% url 'routine_create' %}">
-    {% csrf_token %} 
-      <div class="input-field">
-      <select name="activity">
-      <option disabled="" selected="">SELECT ACTIVITY</option>
-                {% for activity in user_activities %} 
-                {% comment %} routine needs to be local to profile {% endcomment %}
-                <option title="{{activity}}" value="{{activity}}" name="activity"
-                  >{{activity}}</option
+    <div class="card-panel">
+        <form method="post" action="{% url 'routine_create' %}">
+        {% csrf_token %} 
+    <div class="input-field">
+        <select name="activity">
+        <option disabled="" selected="">SELECT ACTIVITY</option>
+        {% for activity in user_activities %} 
+        <option title="{{activity}}" value="{{activity}}" name="activity">{{activity}}</option
                 >
                 {% endfor %}
               </select>
         <input type="date" name="date">
         <input type="hidden" value="{{profile.id}}" name="profile">
             </div>
+            <div class="center">
             <input
               type="submit"
               value="ADD TO ROUTINE"
-              class="btn #66bb6a green lighten-1"
+              class="btn blue"
             />
-            <!-- <input
-            type="submit"
-            value="Results"
-            data-target="modal2"
-            class="btn #66bb6a green lighten-1 modal-trigger"
-          />  -->
+            </div>
           </form>
       </div>
-
-        <!-- List of Saved Routines -->
-        <div class="col s6">
             <div class="card-panel">
-                <h4>ROUTINES</h4>
+                <h5>ROUTINES</h5>
                 <table class="centered" class="responsive-table">
                     <tr>
                         <th>Date</th>

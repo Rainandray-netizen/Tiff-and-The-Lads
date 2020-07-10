@@ -39,7 +39,7 @@ This app was created during the COVID-19 global pandemic and inspired by [this](
 - AWS S3
 
 ## API
-We used the COVID-19 API using data from John Hopkins University. This data is updated every 10 minutes. It can be found here.
+We used [this](https://apify.com/covid-19) COVID-19 API that updates every 5 minutes.
 
 ## Resources
 Data for risk factor calculations were sourced from CDC [here](https://www.cdc.gov/coronavirus/2019-ncov/need-extra-precautions/people-with-medical-conditions.html) and [here](https://www.cdc.gov/coronavirus/2019-ncov/daily-life-coping/going-out.html?CDC_AA_refVal=https%3A%2F%2Fwww.cdc.gov%2Fcoronavirus%2F2019-ncov%2Fdaily-life-coping%2Factivities.html). As well as from the Texas Medical Association [here](https://www.texmed.org/TexasMedicineDetail.aspx?id=53977). 
@@ -70,19 +70,23 @@ Click [here]() to view a demo
 </a>
 
 ## Installation
-Ensure the follow are installed locally
+Aftering installing ``django-environ`` and ``request`` create a .env file with necessary variables for your database
 ``` 
 $ pip3 install django-environ 
 ```
 ``` 
 $ pip3 install request
 ```
-For web-scraping
+`` beautifulsoup4`` for web-scraping
 ``` 
 $ pip3 install beautifulsoup4 
 ```
-For AWS S3
+``boto3`` for AWS S3
 ``` 
 $ pip3 install boto3 
 ```
-Aftering installing ``django-environ`` create a .env file with necessary variables for your database
+Update with AWS S3 credentials
+```
+$ code ~/.aws/credentials
+```
+
