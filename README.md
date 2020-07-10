@@ -47,7 +47,7 @@ Data for risk factor calculations were sourced from CDC [here](https://www.cdc.g
 
 ## Planning
 - [User Stories + Wireframes](https://trello.com/b/VxQ5wmsr/team-sei)
-- [ERD]()
+- [ERD](https://github.com/daronefrancis/Tiff-and-The-Lads/blob/master/ERD/Risky.png?raw=true)
 
 ## Screenshots
 <img src="/imgs/home.png/" caption="Homepage"/>
