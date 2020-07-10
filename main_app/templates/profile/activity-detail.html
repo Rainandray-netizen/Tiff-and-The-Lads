@@ -9,9 +9,9 @@
                 <tr>
 
                     <th>Number of People</th>
-                    <th>Distancing?</th>
+                    <th>Distancing</th>
                     <th>Venue</th>
-                    <th>Time</th>
+                    <th>Time </th>
                     <th>Interaction</th>
                     <th>Risk Level</th>
 
@@ -20,13 +20,13 @@
 
                     <td>{{activity.number_of_people}}</td>
 
-                    <td>{{activity.distancing}}</td>
+                    <td>{{activity.get_distancing_display}}</td>
 
-                    <td>{{activity.venue}}</td>
+                    <td>{{activity.get_venue_display}}</td>
 
-                    <td>{{activity.time_length}}</td>
+                    <td>{{activity.get_time_length_display}}</td>
 
-                    <td>{{activity.interaction}}</td>
+                    <td>{{activity.get_interaction_display}}</td>
 
                     <td>{{activity.risk_level}}</td>
 
@@ -80,7 +80,7 @@
 
             <p> No Recommendations at this time </p>
             {% endif %}
-
+{{r}}
         </div>
 
     </div>
