@@ -58,6 +58,15 @@ def add_photo(request, profile_id):
             print('An error occurred uploading file to S3')
     return redirect('/accounts/profile', profile_id=profile_id)
 
+
+def save(self, *args, **kwargs):
+        try:
+            this = Cars.objects.get(id=self.id)
+            if this.image_file:
+                this.image_file.delete()   
+        except ObjectDoesNotExist: 
+            pass        
+        super(Cars, self).save(*args, **kwargs)
 # if the routine has a date equal to todays date then pass them here 
 def dashboard(request):
     user = request.user
@@ -144,7 +153,7 @@ def add_activity(request, profile_id):
     else:
       risk_score += 8
 
-    if distancing == False:
+    if distancing == 'No':
       risk_score += 7
     else: 
       risk_score += 3

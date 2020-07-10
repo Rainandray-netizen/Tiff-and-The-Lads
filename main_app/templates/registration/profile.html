@@ -12,11 +12,11 @@
                <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt="" class="circle responsive-img">
                 {% endfor %}
                     <form action="{% url 'add_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-    {% csrf_token %}
-    <input type="file" name="photo-file">
-    <br><br>
-    <input type="submit" class="btn" value="Upload Photo">
-</form>
+                    {% csrf_token %}
+                    <input type="file" name="photo-file">
+                    <br><br>
+                    <input type="submit" class="btn" value="Upload Photo">
+                </form>
                 </div>
                 <div class="col s10">
                     <ul>
@@ -25,7 +25,6 @@
                         </li>
                         <li><b>Location: </b> <span>{{ profile.location }}</span></li>
                         <li><a href="{% url 'profile_update' profile.id %}" class="waves-effect waves-light btn-small" >Edit Profile</a></li>
-                        <li><b>Edit Profile </b></li>
                     </ul>
                 </div>
             </div>
@@ -59,7 +58,6 @@
                         </td>
                         <td>
                             <a href="{% url 'detail' activity.id %}"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a> </td>
-
                     </tr>
 
                     {% endfor %}
