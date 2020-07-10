@@ -1,0 +1,1 @@
+web: gunicorn covid_risk_assessment.wsgi
