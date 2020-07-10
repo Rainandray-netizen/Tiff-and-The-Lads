@@ -29,8 +29,6 @@ BUCKET = 'covidriskapp'
 
 # Create your views here.
 def home(request):
-    if request.user:
-      return redirect("/dashboard")  
     if request.method == 'POST':
         selected_activity = request.POST.get('activity')
         activity = list(filter(lambda a: a['activity'] == selected_activity, activities))
