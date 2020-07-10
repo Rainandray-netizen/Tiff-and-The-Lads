@@ -9,8 +9,15 @@
 
   <form class="signup" method="post" action="{% url 'signup' %}">
     {% csrf_token %} {{ form.as_p }}
-    <input type="submit" class="btn" value="signup" />
+    <div class="center">
+    <input type="submit" class="btn blue" value="signup" />
+    </div>
   </form>
 </section>
-
+<div class="center">
+    <small>
+      Already Have An Account?
+      <a class="ml-2" href="{% url 'login' %}">Login</a>
+    </small>
+  </div>
 {% endblock %}
