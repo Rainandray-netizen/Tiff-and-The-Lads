@@ -238,7 +238,7 @@ class ActivityUpdate(UpdateView):
   model = Activity
   fields = ['name', 'number_of_people', 'distancing','venue', 'time_length', 'interaction']
   success_url = '/accounts/profile'
-
+  
 class RoutineList(LoginRequiredMixin, ListView):
   model = Activity
 
@@ -263,8 +263,4 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
 class ProfileUpdate(UpdateView):
   model = Profile
   fields = ['name', 'location']
-<<<<<<< HEAD
-  success_url = '/accounts/profile'
-=======
   success_url = '/accounts/profile/'
->>>>>>> 465dd6c7d53c35a24d8181270f57a796814b1bc0
