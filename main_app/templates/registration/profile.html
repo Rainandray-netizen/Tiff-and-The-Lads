@@ -4,19 +4,30 @@
     <div class="media">
         <div class="card-panel grey lighten-5 z-depth-1">
             <div class="row valign-wrapper">
-                <div class="col s2">
+                <div class="col s3">
                     <!-- Profile image - with the circle class -->
                 {% for photo in profile.photo_set.all %}
-                <img class="responsive-img card-panel" src="{{photo.url}}">
+                <img class="responsive-img circle" src="{{photo.url}}">
                 {% empty %}
-               <img src="http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg" alt="" class="circle responsive-img">
+               <h2>no photo</h2>
                 {% endfor %}
-                    <form action="{% url 'add_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-                    {% csrf_token %}
-                    <input type="file" name="photo-file">
-                    <br><br>
-                    <input type="submit" class="btn" value="Upload Photo">
-                </form>
+                    <input style="float: right;" type="submit" class="btn blue lighten-1 modal-trigger" value="edit profile image" data-target="modal2" />
+
+<div id="modal2" class="modal">
+                    <div class="modal-content">
+                        <h4>Change Profile Image </h4>
+                            <a style="float: right;" href="#!" class="modal-close waves-effect waves-green btn-flat">X</a></h4>
+                               <form action="{% url 'add_photo' profile.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+    {% csrf_token %}
+    <input type="file" name="photo-file">
+    <br><br>
+    <input type="submit" class="btn" value="Upload Photo">
+</form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+                
                 </div>
                 <div class="col s10">
                     <ul>
@@ -87,7 +98,7 @@
     <form class="col s12" method="post" action="{% url 'routine_create' %}">
     {% csrf_token %} 
       <div class="input-field">
-      <select multiple name="activity">
+      <select name="activity">
       <option disabled="" selected="">SELECT ACTIVITY</option>
                 {% for activity in user_activities %} 
                 {% comment %} routine needs to be local to profile {% endcomment %}
@@ -134,17 +145,7 @@
                         </td>
                     </tr>
                     {% endfor %}
-                    {% for routine in user.routine_set.all %}
-                    <tr>
-                        <td>{{routine.activity}}</td>
-                        <td>Risk level 1</td>
-                        <td>
-                            <a href="#modal2" data-target="modal2" data-toggle="modal"><i class="material-icons">visibility</i></a> <a href="{% url 'activity_delete' activity.id %}"><i class="material-icons">delete</i></a>
-                        </td>
-
-                    </tr>
-
-                    {% endfor %}
+                    
                 </table>
             </div>
         </div>
