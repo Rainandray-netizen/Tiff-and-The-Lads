@@ -15,8 +15,17 @@ from django.contrib.auth.models import User
 from .forms import ActivityForm
 import uuid
 import boto3
+import requests
+from bs4 import BeautifulSoup
+
+URL = 'https://chartwell.com/en/blog/2020/03/8-tips-to-help-prevent-coronavirus-infection-and-illness'
+page = requests.get(URL)
+
+soup = BeautifulSoup(page.content, 'html.parser')
+
 S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
 BUCKET = 'covidriskapp'
+
 
 # Create your views here.
 def home(request):
@@ -44,14 +53,10 @@ def add_photo(request, profile_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
         s3 = boto3.client('s3')
-        # need a unique "key" for S3 / needs image file extension too
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        # just in case something goes wrong
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
-            # build the full url string
-            url = f"{S3_BASE_URL}{BUCKET}/{key}"
-            # we can assign to cat_id or cat (if you have a cat object)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"    
             photo = Photo(url=url, profile_id=profile_id)
             photo.save()
         except:
@@ -167,7 +172,9 @@ def add_activity(request, profile_id):
       risk_score += 5
     else:
       risk_score += 8
-    risk_score = risk_score / 4
+    risk_score = risk_score / 3.5
+    print(risk_score)
+    print(distancing)
     form = ActivityForm(request.POST)
     if form.is_valid():
       new_activity = form.save(commit=False)
@@ -178,13 +185,17 @@ def add_activity(request, profile_id):
   
 def activites_detail(request, activity_id):
   activity = Activity.objects.get(id=activity_id)
-  return render(request, '/profile/activity-detail.html', {'activity': activity})
+  results = soup.find("div",{"class":'articleBody'})
+  r = results.text
+  print(r)
+  return render(request, 'profile/activity-detail.html', {'activity': activity, 'r':r})
 
 # @login_required
 def routine_create(request):
     print(request.user.id)
     profile = Profile.objects.get(user=request.user.id)
     activity = Activity.objects.get(name=request.POST.get('activity'))
+  
     if request.method == 'POST':
         date = request.POST.get('date')
         new_routine = Routine.objects.create(date=date, profile=profile, activity_name=activity)
