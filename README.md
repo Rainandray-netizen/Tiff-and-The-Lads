@@ -63,6 +63,7 @@ Click [here]() to view a demo
 - Web scraping using BeautifulSoup to get information, recommendations and safety precautions 
 - Connect a country API to provide seamless selection of countries when creating a profile and minimize mistakes
 - Ability to add multiple activities to one routine 
+- Add error handling
 
 ## Contributors
 <a href="https://github.com/Rainandray-netizen/Tiff-and-The-Lads/graphs/contributors">
