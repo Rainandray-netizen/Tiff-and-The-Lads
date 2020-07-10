@@ -5,39 +5,41 @@
     <h5 class="center">GLOBAL STATS</h5>
     <p class="center"></p>
     <div class="col s4">
-      <a
+      {% comment %} <a
         href
         class="tooltipped"
         data-position="bottom"
         data-tooltip="+{{global_stats.NewConfirmed}}"
-        ><div class="card-panel red lighten-1">
-          <span class="white-text">{{global_stats.TotalConfirmed}}</span>
+        > {% endcomment %}
+        <div class="card-panel red lighten-1">
+          <span class="white-text">{{global_stats.total_infected}}</span>
         </div></a
       >
 
       <p class="data-label">TOTAL CASES</p>
     </div>
     <div class="col s4">
-      <a
+      {% comment %} <a
         href
         class="tooltipped"
         data-position="right"
         data-tooltip="+{{global_stats.NewDeaths}}"
-        ><div class="card-panel red lighten-1">
-          <span class="white-text center">{{global_stats.TotalDeaths}}</span>
+        > {% endcomment %}
+        <div class="card-panel red lighten-1">
+          <span class="white-text center">{{global_stats.total_deaths}}</span>
         </div></a
       >
       <p class="data-label">TOTAL DEATHS</p>
     </div>
     <div class="col s4">
-      <a
+      {% comment %} <a
         href
         class="tooltipped"
         data-position="bottom"
         data-tooltip="+{{global_stats.NewRecovered}}"
-      >
+      > {% endcomment %}
         <div class="card-panel red lighten-1">
-          <span class="white-text">{{global_stats.TotalRecovered}}</span>
+          <span class="white-text">{{global_stats.total_recovered}}</span>
         </div></a
       >
       <p class="data-label">TOTAL RECOVERED</p>
@@ -46,7 +48,7 @@
 
   <div class="container center">
     <div class="row">
-      <h5 class="center">How Risky Are You?</h5>
+      <h5 class="center">RISK ASSESSMENT</h5>
 
       <form class="col s12" method="post" action="{% url 'home' %}">{% csrf_token %} 
         <div class="input-field">
