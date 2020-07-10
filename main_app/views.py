@@ -29,6 +29,8 @@ BUCKET = 'covidriskapp'
 
 # Create your views here.
 def home(request):
+    if request.user:
+      return redirect("/dashboard")  
     if request.method == 'POST':
         selected_activity = request.POST.get('activity')
         activity = list(filter(lambda a: a['activity'] == selected_activity, activities))
@@ -97,6 +99,7 @@ def dashboard(request):
             'today_routine': routine,
             'last_updated': last_updated,
             'user_activities': user_activities,
+            'global_stats': global_stats,
             'selected_activities': selected_activities,
             'location': location,
             'user_country': user_country,
@@ -112,6 +115,7 @@ def dashboard(request):
         'last_updated': last_updated,
         'user_activities': user_activities,
         'location': location,
+        'global_stats': global_stats,
         'user_country': user_country,
         'activities': activities,
         'country_stats': country_stats_list,
